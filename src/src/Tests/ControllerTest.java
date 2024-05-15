@@ -30,8 +30,8 @@ class ControllerTest {
     @Test
     void createFadTest() {
         Fad fad = Controller.createFad("fadHistorie", "tidligereBrug", 1, "koebssted", "fadNavn", 100);
-        assertEquals("History", fad.getFadHistore());
-        assertEquals("Previous Use", fad.getTidligereBrug());
+        assertEquals("fadHistorie", fad.getFadHistore());
+        assertEquals("tidligereBrug", fad.getTidligereBrug());
     }
 
     @Test

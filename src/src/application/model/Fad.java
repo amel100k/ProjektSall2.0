@@ -61,9 +61,10 @@ public class Fad {
     }
 
     public void fyldPåFad(int mængde) {
-        if (mængde <= getLedigPlads()) {
-            mængdePåFad += mængde;
+        if (mængde > getLedigPlads()) {
+            throw new IllegalArgumentException("Mængde overskrider tilgængelig plads i fad");
         }
+        mængdePåFad += mængde;
     }
     public void fyldPaaFlaske(Fad fad, int mængde){
         if(mængde < fad.getMængdePåFad()){
