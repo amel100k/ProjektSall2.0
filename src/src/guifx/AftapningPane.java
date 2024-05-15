@@ -87,8 +87,9 @@ public class AftapningPane extends VBox {
             antalLiterIAlt += Integer.parseInt(literAftap.getText());
         }
         antalLiterIAlt +=  + Integer.parseInt(fortyndingTF.getText());
-            Controller.createProdukt(aftapningArrayList,40, antalLiterIAlt);
+            Produkt produkt = Controller.createProdukt(aftapningArrayList,40, antalLiterIAlt);
         popUpFlaske().showAndWait();
+        flaskeListView.getItems().add(produkt);
         updateAftapningLV(Storage.getAftapninger());
     }
     public Stage popUpFlaske(){
