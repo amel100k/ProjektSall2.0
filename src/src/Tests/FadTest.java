@@ -8,21 +8,23 @@ class FadTest {
     @Test
     void tilføjVedPladsTilgængelig() {
         Fad fad = new Fad("Benns kælder", "Sherry", 1, "Spanien", "Ola", 100);
-        fad.fyldPåFad(50);
-        assertEquals(50, fad.getMængdePåFad());
+        fad.setMængdePåFad(50);
+        fad.fyldPåFad(25);
+        assertEquals(75, fad.getMængdePåFad());
     }
 
     @Test
     void påfyldningAfAlleredeFyldtFad() {
         Fad fad = new Fad("Bertils kælder", "Bourbon", 1, "Danmark", "B0", 100);
-        fad.fyldPåFad(101);
-        assertEquals(0, fad.getMængdePåFad());
+        fad.setMængdePåFad(50);
+        assertThrows(IllegalArgumentException.class, () -> fad.fyldPåFad(51));
     }
 
     @Test
     void påfyldningTopGrænseværdiAfFad() {
         Fad fad = new Fad("Emils kælder", "Pisang ambon", 1, "Skotland", "Jul", 100);
-        fad.fyldPåFad(100);
+        fad.setMængdePåFad(50);
+        fad.fyldPåFad(50);
         assertEquals(100, fad.getMængdePåFad());
     }
 
