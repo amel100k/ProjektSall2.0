@@ -12,6 +12,7 @@ import javafx.stage.Stage;
 import storage.Storage;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class AftapningPane extends VBox {
     private ListView<Aftapning> aftapningListView;
@@ -61,6 +62,9 @@ public class AftapningPane extends VBox {
         getChildren().add(pane);
 
         fyldPaaFlaskeButton.setOnAction(event -> fyldPaaFlaske());
+    }
+    public void updateAftapningerListView(List<Aftapning> aftapningList){
+        aftapningListView.getItems().setAll(aftapningList);
     }
     private void fyldPaaFlaske(){
         ArrayList<Aftapning> aftapningArrayList = new ArrayList<>();

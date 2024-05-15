@@ -1,6 +1,7 @@
 package guifx;
 
 import application.controller.Controller;
+import application.model.Aftapning;
 import application.model.Destillat;
 import application.model.Destillering;
 import application.model.Fad;
@@ -12,6 +13,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import storage.Storage;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class DestillaterPane extends VBox {
@@ -22,8 +25,10 @@ public class DestillaterPane extends VBox {
     private TextField mængdeTextField;
     private Label ledigPladsLabel;
     private ListView<Destillat> valgteDestillatListView;
+    private AftapningPane aftapningPane;
 
-    public DestillaterPane() {
+    public DestillaterPane(AftapningPane aftapningPane) {
+        this.aftapningPane = aftapningPane;
         GridPane pane = new GridPane();
         pane.setPadding(new Insets(10));
         pane.setHgap(10);
@@ -104,19 +109,26 @@ public class DestillaterPane extends VBox {
     }
 
     private void fyldPaFad() {
-        Destillat selectedDestillat = destillatListView.getSelectionModel().getSelectedItem();
+        List<Destillat> selectedDestillater = destillatListView.getSelectionModel().getSelectedItems();
         Fad selectedFad = fadListView.getSelectionModel().getSelectedItem();
 
-        if (selectedDestillat != null && selectedFad != null) {
+        if (!selectedDestillater.isEmpty() && selectedFad != null) {
             try {
                 int mængde = Integer.parseInt(mængdeTextField.getText());
                 if (mængde <= selectedFad.getLedigPlads()) {
                     selectedFad.fyldPåFad(mængde);
-                    Storage.addDestillat(selectedDestillat);
+
+                    for (Destillat destillat : selectedDestillater) {
+                    Storage.addDestillat(destillat);
+                    }
+
                     updateLedigPladsLabel(selectedFad);
-                    valgteDestillatListView.getItems().add(selectedDestillat);
-                    //Controller.createAftapning(selectedFad,)
-                    
+                    valgteDestillatListView.getItems().addAll(selectedDestillater);
+
+                    // Opret aftapning med valgte destillater
+                    Controller.createAftapning(selectedFad, new ArrayList<>(selectedDestillater), mængde, LocalDate.now());
+                    aftapningPane.updateAftapningerListView(Storage.getAftapninger());
+
                 } else {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setHeaderText("MANGEL PÅ PLADS!");
@@ -128,6 +140,11 @@ public class DestillaterPane extends VBox {
                 alert.setContentText("Indtast venligst et nummer som mængden");
                 alert.showAndWait();
             }
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText("FEJL!");
+            alert.setContentText("Vælg mindst ét destillat og et fad");
+            alert.showAndWait();
         }
     }
 }
