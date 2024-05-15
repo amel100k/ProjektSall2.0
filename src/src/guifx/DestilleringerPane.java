@@ -4,16 +4,25 @@ import application.controller.Controller;
 import application.model.Destillat;
 import application.model.Destillering;
 import application.model.Mængde;
+import javafx.animation.FadeTransition;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 import storage.Storage;
-
+import javafx.animation.TranslateTransition;
+import javafx.animation.*;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 
 public class DestilleringerPane extends VBox {
     private ListView<Destillering> destilleringListView;
@@ -26,6 +35,8 @@ public class DestilleringerPane extends VBox {
     private TextField kommentar;
     private TextField rygemateriale;
     private DestillaterPane destillaterPane;
+    private VBox destilleringInfoBox;
+
 
     public DestilleringerPane(DestillaterPane destillaterPane) {
 
@@ -39,6 +50,16 @@ public class DestilleringerPane extends VBox {
         destilleringListView.getItems().setAll(Storage.getDestilleringer());
         destilleringListView.setPrefSize(200, 150);
         pane.add(destilleringListView, 0, 9, 2, 1);
+
+        destilleringInfoBox = new VBox(5);
+        destilleringInfoBox.setPadding(new Insets(10));
+        pane.add(destilleringInfoBox, 3, 0, 1, 10);
+
+        destilleringListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                visDestilleringInfo(newValue);
+            }
+        });
 
         Label startDatoLabel = new Label("Startdato:");
         startDato = new DatePicker();
@@ -169,4 +190,29 @@ public class DestilleringerPane extends VBox {
             alert.showAndWait();
         }
     }
+    private void visDestilleringInfo(Destillering destillering) {
+        destilleringInfoBox.getChildren().clear();
+        destilleringInfoBox.getChildren().addAll(
+                new Label("Startdato: " + destillering.getStartDato()),
+                new Label("Slutdato: " + destillering.getSlutDato()),
+                new Label("Maltbatch i gram: " + destillering.getMaltbatchIGram()),
+                new Label("Kornsort: " + destillering.getKornsort()),
+                new Label("Væskemængde i ml: " + destillering.getVæskeMængdeIMl()),
+                new Label("Alkoholprocent: " + destillering.getAlkoholprocent()),
+                new Label("Kommentar: " + destillering.getKommentar()),
+                new Label("Rygemateriale: " + destillering.getRygemateriale())
+        );
+
+        TranslateTransition tt = new TranslateTransition(Duration.millis(500), destilleringInfoBox);
+        tt.setFromX(-100);
+        tt.setToX(0);
+
+        FadeTransition ft = new FadeTransition(Duration.millis(500), destilleringInfoBox);
+        ft.setFromValue(0.0);
+        ft.setToValue(1.0);
+
+        tt.play();
+        ft.play();
+    }
+
 }
