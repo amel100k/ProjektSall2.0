@@ -114,6 +114,7 @@ public class DestillaterPane extends VBox {
                     Storage.addDestillat(selectedDestillat);
                     updateLedigPladsLabel(selectedFad);
                     valgteDestillatListView.getItems().add(selectedDestillat);
+                    
                 } else {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setHeaderText("MANGEL PÅ PLADS!");

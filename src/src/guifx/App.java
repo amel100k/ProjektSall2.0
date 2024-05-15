@@ -5,6 +5,9 @@ import javafx.application.Application;
 import storage.Storage;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class App {
     public static void main(String[] args) {
@@ -26,6 +29,9 @@ public class App {
         Aftapning aftapning2 = new Aftapning(fad2,Storage.getDestillater(),25,LocalDate.now());
         Storage.addAftapning(aftapning1);
         Storage.addAftapning(aftapning2);
+
+        Flaske flaske1 = new Flaske(new ArrayList<Aftapning>(List.of(aftapning1)),4);
+        Storage.addFlaske(flaske1);
     }
 
 }

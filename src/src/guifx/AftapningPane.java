@@ -1,18 +1,29 @@
 package guifx;
 
+import application.controller.Controller;
 import application.model.Aftapning;
 import application.model.Fad;
 import application.model.Flaske;
 import javafx.geometry.Insets;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import storage.Storage;
+
+import java.util.ArrayList;
 
 public class AftapningPane extends VBox {
     private ListView<Aftapning> aftapningListView;
     private ListView<Flaske> flaskeListView;
     private TextField fortyndingTF;
+    private TextField literAftap;
+    private Label testLbl;
+    int antalLiterIAlt = 0;
+    private Label antalFlasker;
+
 
     public AftapningPane(){
         GridPane pane = new GridPane();
@@ -20,12 +31,12 @@ public class AftapningPane extends VBox {
         pane.setHgap(10);
         pane.setVgap(5);
 
-
         aftapningListView = new ListView<>();
         aftapningListView.getItems().setAll(Storage.getAftapninger());
-        aftapningListView.setPrefSize(600,100);
+        aftapningListView.setPrefSize(300,100);
         pane.add(aftapningListView,0,0,2,1);
         aftapningListView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+
 
         fortyndingTF = new TextField();
         fortyndingTF.setPromptText("Indtast fortynding i L");
@@ -37,19 +48,58 @@ public class AftapningPane extends VBox {
         Button seFortyndingHis = new Button("Historik");
         pane.add(seFortyndingHis,0,4);
 
+     //   Label flaskerLabel = new Label("Flasker");
+      //  pane.add(flaskerLabel,3,0);
+
+        flaskeListView = new ListView<>();
+        flaskeListView.getItems().setAll(Storage.getFlasker());
+        flaskeListView.setPrefSize(300,100);
+        pane.add(flaskeListView,3,0,2,1);
+
+        literAftap = new TextField();
+        literAftap.setPromptText("Liter aftapning");
+        pane.add(literAftap,1,2);
+
         getChildren().add(pane);
 
         fyldPaaFlaskeButton.setOnAction(event -> fyldPaaFlaske());
     }
     private void fyldPaaFlaske(){
-        int antalLiterIAlt = 0;
+        ArrayList<Aftapning> aftapningArrayList = new ArrayList<>();
         for (Aftapning selectedItem : aftapningListView.getSelectionModel().getSelectedItems()) {
-            antalLiterIAlt += selectedItem.getLiter();
-            selectedItem.setLiter(0);
+            aftapningArrayList.add(selectedItem);
+        }
+
+        for (Aftapning selectedItem : aftapningListView.getSelectionModel().getSelectedItems()) {
+            selectedItem.fyldPaaFlaske(selectedItem.getLiter(),Integer.parseInt(literAftap.getText()),aftapningArrayList);
             if(selectedItem.getLiter() == 0){
                 aftapningListView.getItems().remove(selectedItem);
             }
+            antalLiterIAlt += Integer.parseInt(literAftap.getText());
         }
-        antalLiterIAlt +=  Integer.parseInt(fortyndingTF.getText());
+        antalLiterIAlt +=  + Integer.parseInt(fortyndingTF.getText());
+        for (int i = 0; i < antalLiterIAlt; i++) {
+            Controller.createFlaske(aftapningArrayList,40);
+        }
+
+        popUpFlaske().showAndWait();
     }
+    public Stage popUpFlaske(){
+         Stage stage = new Stage();
+         stage.setWidth(250);
+         stage.setHeight(100);
+         GridPane pane = new GridPane();
+         Scene scene = new Scene(pane);
+         stage.setScene(scene);
+
+         testLbl = new Label("Med " + antalLiterIAlt + "L væske har du lavet: " ) ;
+         pane.add(testLbl,0,0);
+
+         antalFlasker = new Label();
+         antalFlasker.setText("" + antalLiterIAlt + " flasker whiskey");
+         pane.add(antalFlasker,1,0);
+
+         return stage;
+    }
+
 }

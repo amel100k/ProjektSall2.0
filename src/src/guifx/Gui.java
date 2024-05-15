@@ -16,6 +16,7 @@ public class Gui extends Application{
         Scene scene = new Scene(pane);
         stage.setScene(scene);
         stage.show();
+
     }
     // -------------------------------------------------------------------------
 
@@ -46,12 +47,12 @@ public class Gui extends Application{
         destilleringerTab.setContent(new DestilleringerPane(destillaterPaneTest));
         tabPane.getTabs().add(destilleringerTab);
 
+
         Tab aftapTab = new Tab();
         aftapTab.setText("Aftap fad");
         aftapTab.setContent(new AftapningPane());
         tabPane.getTabs().add(aftapTab);
 
         pane.setStyle("-fx-background-image: url('https://mydailyspace.dk/wp-content/uploads/2021/02/natasha-arefyeva-u1pYVFDS2CI-unsplash-scaled-e1620811866156-772x1024.jpg')");
-
     }
 }
