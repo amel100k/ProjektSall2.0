@@ -1,5 +1,8 @@
 package application.model;
 
+import application.controller.Controller;
+import storage.Storage;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -14,6 +17,20 @@ public class Aftapning {
         this.destillat = destillat;
         this.liter = literDerFyldesPåFad;
         this.dato = dato;
+    }
+    public void fyldPaaFlaske(int literVand, int literAftap,ArrayList<Aftapning> aftapningArrayList){
+       int literVæskeIAlt = 0;
+        for (Aftapning aftapning : aftapningArrayList) {
+            literVæskeIAlt += aftapning.getLiter();
+        }
+        System.out.println("literVæskeIAlt: " + literVæskeIAlt + ", literaftap: " +literAftap );
+
+        if(literVæskeIAlt < literAftap){
+            throw new IllegalArgumentException("Du kan ikke tappe mere end der er væske");
+        }
+        int antalLiterIAlt = 0;
+        antalLiterIAlt = literVand;
+        setLiter(literVand - literAftap);
     }
 
     public void setLiter(int liter) {
