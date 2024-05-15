@@ -18,11 +18,9 @@ public class Aftapning {
         this.liter = literDerFyldesPåFad;
         this.dato = dato;
     }
-    public void fyldPaaFlaske(int literVand, int literAftap,ArrayList<Aftapning> aftapningArrayList){
+    public void fyldPaaFlaske(int literVand, int literAftap,Aftapning aftapning){
        int literVæskeIAlt = 0;
-        for (Aftapning aftapning : aftapningArrayList) {
-            literVæskeIAlt += aftapning.getLiter();
-        }
+        literVæskeIAlt = aftapning.getLiter();
         System.out.println("literVæskeIAlt: " + literVæskeIAlt + ", literaftap: " +literAftap );
 
         if(literVæskeIAlt < literAftap){

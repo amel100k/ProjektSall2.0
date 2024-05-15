@@ -66,10 +66,10 @@ public class AftapningPane extends VBox {
         ArrayList<Aftapning> aftapningArrayList = new ArrayList<>();
         for (Aftapning selectedItem : aftapningListView.getSelectionModel().getSelectedItems()) {
             aftapningArrayList.add(selectedItem);
-        }
 
+        }
         for (Aftapning selectedItem : aftapningListView.getSelectionModel().getSelectedItems()) {
-            selectedItem.fyldPaaFlaske(selectedItem.getLiter(),Integer.parseInt(literAftap.getText()),aftapningArrayList);
+            selectedItem.fyldPaaFlaske(selectedItem.getLiter(),Integer.parseInt(literAftap.getText()),aftapningListView.getSelectionModel().getSelectedItem());
             if(selectedItem.getLiter() == 0){
                 aftapningListView.getItems().remove(selectedItem);
             }
