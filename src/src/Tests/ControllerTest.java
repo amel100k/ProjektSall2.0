@@ -42,6 +42,7 @@ class ControllerTest {
     @Test
     void createAftapningTest() {
         Fad fad = new Fad("fadHistorie", "tidligereBrug", 1, "koebssted", "fadNavn", 100);
+        fad.setMængdePåFad(50);
         ArrayList<Destillat> destillat = new ArrayList<>();
         Aftapning aftapning = Controller.createAftapning(fad, destillat, 50, LocalDate.now());
         assertEquals(50, aftapning.getLiter());
@@ -50,6 +51,7 @@ class ControllerTest {
     @Test
     void createAftapningUgyldigLiter() {
         Fad fad = new Fad("fadHistorie", "tidligereBrug", 1, "koebssted", "fadNavn", 100);
+        fad.setMængdePåFad(50);
         ArrayList<Destillat> destillat = new ArrayList<>();
         assertThrows(IllegalArgumentException.class, () -> Controller.createAftapning(fad, destillat, 150, LocalDate.now()));
     }
