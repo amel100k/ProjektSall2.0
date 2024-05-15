@@ -42,6 +42,7 @@ public class DestillaterPane extends VBox {
         destillatListView = new ListView<>();
         destillatListView.setPrefSize(400, 100);
         pane.add(destillatListView, 0, 1);
+        destillatListView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
         fadListView = new ListView<>();
         fadListView.getItems().setAll(Storage.getFade());
@@ -114,7 +115,8 @@ public class DestillaterPane extends VBox {
 
         if (!selectedDestillater.isEmpty() && selectedFad != null) {
             try {
-                int mængde = Integer.parseInt(mængdeTextField.getText());
+                int mængde = Integer.parseInt(mængdeTextField.getText()) * destillatListView.getSelectionModel().getSelectedItems().size();
+
                 if (mængde <= selectedFad.getLedigPlads()) {
                     selectedFad.fyldPåFad(mængde);
 
