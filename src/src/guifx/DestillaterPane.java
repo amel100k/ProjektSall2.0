@@ -1,5 +1,6 @@
 package guifx;
 
+import application.controller.Controller;
 import application.model.Destillat;
 import application.model.Destillering;
 import application.model.Fad;
@@ -114,6 +115,7 @@ public class DestillaterPane extends VBox {
                     Storage.addDestillat(selectedDestillat);
                     updateLedigPladsLabel(selectedFad);
                     valgteDestillatListView.getItems().add(selectedDestillat);
+                    //Controller.createAftapning(selectedFad,)
                     
                 } else {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
