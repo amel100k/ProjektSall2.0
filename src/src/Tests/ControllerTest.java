@@ -36,7 +36,7 @@ class ControllerTest {
 
     @Test
     void createFadUgyldigKapacitet() {
-        assertThrows(IllegalArgumentException.class, () -> Controller.createFad("", "tidligereBrug", 1, "koebssted", "fadNavn", -100));
+        assertThrows(IllegalArgumentException.class, () -> Controller.createFad("fadHistorie", "tidligereBrug", 1, "koebssted", "fadNavn", -100));
     }
 
     @Test
