@@ -95,6 +95,9 @@ public class DestillaterPane extends VBox {
     public void updateDestilleringListView(List<Destillering> destilleringList){
         destilleringListView.getItems().setAll(destilleringList);
     }
+    public void updateDestillaterListView(List<Destillat> destillatList){
+        destillatListView.getItems().setAll(destillatList);
+    }
     private void updateLedigPladsLabel(Fad selectedFad) {
         ledigPladsLabel.setText("Ledig plads på fad: " + selectedFad.getLedigPlads() + " liter");
     }
