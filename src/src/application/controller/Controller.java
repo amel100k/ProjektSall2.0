@@ -31,8 +31,8 @@ public class Controller {
         return aftapning;
     }
 
-    public static Produkt createProdukt(ArrayList<Aftapning> aftapningArrayList, int i) {
-        Produkt produkt = new Produkt(aftapningArrayList,i);
+    public static Produkt createProdukt(ArrayList<Aftapning> aftapningArrayList, int i, int liter) {
+        Produkt produkt = new Produkt(aftapningArrayList,i,liter);
         Storage.addProdukt(produkt);
         return produkt;
     }

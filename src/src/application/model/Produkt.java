@@ -6,10 +6,9 @@ public class Produkt {
     private ArrayList<Aftapning> aftapninger;
     private int kapacitetILiter;
     private double alkoholprocent;
-
-    public Produkt(ArrayList<Aftapning> aftapninger, double alkoholprocent) {
+    public Produkt(ArrayList<Aftapning> aftapninger, double alkoholprocent, int kapacitetILiter) {
         this.aftapninger = aftapninger;
-        this.kapacitetILiter = 1;
+        this.kapacitetILiter = kapacitetILiter;
         this.alkoholprocent = alkoholprocent;
     }
 
@@ -35,10 +34,7 @@ public class Produkt {
     }
     @Override
     public String toString() {
-        return "Flaske{" +
-                "aftapninger=" + aftapninger +
-                ", kapacitetILiter=" + kapacitetILiter +
-                ", alkoholprocent=" + alkoholprocent +
-                '}';
+        return "Alkohol%:" + alkoholprocent +
+                " Liter:" + kapacitetILiter;
     }
 }

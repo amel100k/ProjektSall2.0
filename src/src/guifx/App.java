@@ -25,11 +25,11 @@ public class App {
         Storage.addFad(fad2);
 
         Aftapning aftapning1 = new Aftapning(fad,Storage.getDestillater(),50,LocalDate.now());
-        Aftapning aftapning2 = new Aftapning(fad2,Storage.getDestillater(),25,LocalDate.now());
+        Aftapning aftapning2 = new Aftapning(fad2,Storage.getDestillater(),50,LocalDate.now());
         Storage.addAftapning(aftapning1);
         Storage.addAftapning(aftapning2);
 
-        Produkt produkt1 = new Produkt(new ArrayList<Aftapning>(List.of(aftapning1)),4);
+        Produkt produkt1 = new Produkt(new ArrayList<Aftapning>(List.of(aftapning1)),40, 10);
         Storage.addProdukt(produkt1);
     }
 
