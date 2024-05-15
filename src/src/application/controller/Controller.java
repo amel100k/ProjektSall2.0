@@ -1,9 +1,6 @@
 package application.controller;
 
-import application.model.Destillat;
-import application.model.Destillering;
-import application.model.Fad;
-import application.model.Aftapning;
+import application.model.*;
 import storage.Storage;
 
 import java.time.LocalDate;
@@ -32,5 +29,11 @@ public class Controller {
         Aftapning aftapning = new Aftapning(fad,destillat,fad.getMængdePåFad(),dato);
         Storage.addAftapning(aftapning);
         return aftapning;
+    }
+
+    public static Produkt createProdukt(ArrayList<Aftapning> aftapningArrayList, int i) {
+        Produkt produkt = new Produkt(aftapningArrayList,i);
+        Storage.addProdukt(produkt);
+        return produkt;
     }
 }

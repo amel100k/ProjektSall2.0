@@ -2,12 +2,12 @@ package application.model;
 
 import java.util.ArrayList;
 
-public class Flaske {
+public class Produkt {
     private ArrayList<Aftapning> aftapninger;
     private int kapacitetILiter;
     private double alkoholprocent;
 
-    public Flaske(ArrayList<Aftapning> aftapninger, double alkoholprocent) {
+    public Produkt(ArrayList<Aftapning> aftapninger, double alkoholprocent) {
         this.aftapninger = aftapninger;
         this.kapacitetILiter = 1;
         this.alkoholprocent = alkoholprocent;
@@ -27,11 +27,11 @@ public class Flaske {
         return alkoholprocent;
     }
 
-    public int beregnAntalFlasker(int liter){
-        int antalFlasker = 0;
-        antalFlasker = liter/kapacitetILiter;
+    public int beregnLiterProdukt(int liter){
+        int antalLiterAfProdukt = 0;
+        antalLiterAfProdukt = liter/kapacitetILiter;
 
-        return antalFlasker;
+        return antalLiterAfProdukt;
     }
     @Override
     public String toString() {

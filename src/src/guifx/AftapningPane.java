@@ -2,13 +2,11 @@ package guifx;
 
 import application.controller.Controller;
 import application.model.Aftapning;
-import application.model.Fad;
-import application.model.Flaske;
+import application.model.Produkt;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import storage.Storage;
@@ -17,7 +15,7 @@ import java.util.ArrayList;
 
 public class AftapningPane extends VBox {
     private ListView<Aftapning> aftapningListView;
-    private ListView<Flaske> flaskeListView;
+    private ListView<Produkt> flaskeListView;
     private TextField fortyndingTF;
     private TextField literAftap;
     private Label testLbl;
@@ -79,7 +77,7 @@ public class AftapningPane extends VBox {
         }
         antalLiterIAlt +=  + Integer.parseInt(fortyndingTF.getText());
         for (int i = 0; i < antalLiterIAlt; i++) {
-            Controller.createFlaske(aftapningArrayList,40);
+            Controller.createProdukt(aftapningArrayList,40);
         }
 
         popUpFlaske().showAndWait();

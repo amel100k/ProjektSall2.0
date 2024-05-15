@@ -11,7 +11,7 @@ public class Fad {
     private int fadKapacitet;
     private int mængdePåFad;
     ArrayList<Destillat> destillater = new ArrayList<>();
-    private Flaske flaske;
+    private Produkt produkt;
     public Fad(String fadHistore, String tidligereBrug, int placering, String koebssted, String fadNavn, int fadKapacitet) {
         this.fadHistore = fadHistore;
         this.tidligereBrug = tidligereBrug;

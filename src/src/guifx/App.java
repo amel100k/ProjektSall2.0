@@ -6,7 +6,6 @@ import storage.Storage;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class App {
@@ -30,8 +29,8 @@ public class App {
         Storage.addAftapning(aftapning1);
         Storage.addAftapning(aftapning2);
 
-        Flaske flaske1 = new Flaske(new ArrayList<Aftapning>(List.of(aftapning1)),4);
-        Storage.addFlaske(flaske1);
+        Produkt produkt1 = new Produkt(new ArrayList<Aftapning>(List.of(aftapning1)),4);
+        Storage.addProdukt(produkt1);
     }
 
 }
