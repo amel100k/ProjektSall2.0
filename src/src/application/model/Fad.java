@@ -74,11 +74,7 @@ public class Fad {
 
     @Override
     public String toString() {
-        return "Fad: " +
-                "Fadhistore: '" + fadHistore + '\'' +
-                ", Tidligere brug: '" + tidligereBrug + '\'' +
-                ", Placering: " + placering +
-                ", Koebssted: '" + koebssted + '\'' +
+        return
                 ", Fadnavn: '" + fadNavn + '\'' +
                 ", Fadkapacitet: " + fadKapacitet;
     }

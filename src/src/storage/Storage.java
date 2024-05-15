@@ -1,9 +1,6 @@
 package storage;
 
-import application.model.Aftapning;
-import application.model.Destillat;
-import application.model.Destillering;
-import application.model.Fad;
+import application.model.*;
 import javafx.collections.ObservableList;
 
 import java.util.ArrayList;
@@ -14,6 +11,7 @@ public class Storage {
     private static ArrayList<Destillering> destilleringer = new ArrayList<>();
     private static ArrayList<Destillat> destillater = new ArrayList<>();
     private static ArrayList<Aftapning> aftapninger = new ArrayList<>();
+    private  static ArrayList<Flaske> flasker = new ArrayList<>();
     public static void addDestillering(Destillering destillering) {
         destilleringer.add(destillering);
     }
@@ -25,6 +23,9 @@ public class Storage {
     }
     public static void addAftapning(Aftapning aftapning){
         aftapninger.add(aftapning);
+    }
+    public static void addFlaske(Flaske flakse){
+        flasker.add(flakse);
     }
 
     public static ArrayList<Fad> getFade() {
@@ -41,5 +42,9 @@ public class Storage {
 
     public static ArrayList<Aftapning> getAftapninger() {
         return aftapninger;
+    }
+
+    public static ArrayList<Flaske> getFlasker() {
+        return flasker;
     }
 }

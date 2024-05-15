@@ -3,6 +3,7 @@ package guifx;
 import application.controller.Controller;
 import application.model.Destillat;
 import application.model.Destillering;
+import application.model.Mængde;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
@@ -85,10 +86,18 @@ public class DestilleringerPane extends VBox {
         Button annullerButton = new Button("Annuller");
         annullerButton.setOnAction(event -> annullerButtonAction());
 
+        Button lavDestillatButton = new Button("Lav Destillat");
+        lavDestillatButton.setOnAction(event -> lavDestillatButton());
+
         HBox buttonBox = new HBox(10);
         buttonBox.getChildren().addAll(gemButton, annullerButton);
 
+        HBox buttonBox2 = new HBox();
+        buttonBox2.getChildren().addAll(lavDestillatButton);
+
         pane.add(buttonBox, 0, 8, 2, 1);
+
+        pane.add(buttonBox2,0,10,2,1);
 
         getChildren().add(pane);
     }
@@ -151,6 +160,17 @@ public class DestilleringerPane extends VBox {
         alkoholprocent.clear();
         kommentar.clear();
         rygemateriale.clear();
+        }
+    }
+    public void lavDestillatButton() {
+        Destillering selectedDestillering = destilleringListView.getSelectionModel().getSelectedItem();
+        if (selectedDestillering != null) {
+            PopupWindowDestillat.display(selectedDestillering,destillaterPane);
+        }
+        else {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setContentText("Du skal vælge en destillering for at lave et destillat!");
+            alert.showAndWait();
         }
     }
 }
