@@ -12,6 +12,7 @@ import javafx.stage.Stage;
 import storage.Storage;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class AftapningPane extends VBox {
     private ListView<Aftapning> aftapningListView;
@@ -21,8 +22,7 @@ public class AftapningPane extends VBox {
     private Label testLbl;
     int antalLiterIAlt = 0;
     private Label antalFlasker;
-
-
+    private AftapningPane aftapningPane;
     public AftapningPane(){
         GridPane pane = new GridPane();
         pane.setPadding(new Insets(10));
@@ -33,21 +33,18 @@ public class AftapningPane extends VBox {
         aftapningListView.getItems().setAll(Storage.getAftapninger());
         aftapningListView.setPrefSize(300,100);
         pane.add(aftapningListView,0,0,2,1);
-        aftapningListView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
 
         fortyndingTF = new TextField();
         fortyndingTF.setPromptText("Indtast fortynding i L");
         pane.add(fortyndingTF,0,2);
 
-        Button fyldPaaFlaskeButton = new Button("Fyld på flaske");
+        Button fyldPaaFlaskeButton = new Button("Skab produkt");
         pane.add(fyldPaaFlaskeButton,0,3);
 
         Button seFortyndingHis = new Button("Historik");
         pane.add(seFortyndingHis,0,4);
 
-     //   Label flaskerLabel = new Label("Flasker");
-      //  pane.add(flaskerLabel,3,0);
 
         flaskeListView = new ListView<>();
         flaskeListView.getItems().setAll(Storage.getFlasker());
@@ -60,9 +57,20 @@ public class AftapningPane extends VBox {
 
         getChildren().add(pane);
 
+        aftapningListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) ->
+        {
+            if(newValue !=null){
+                updateAftapningLV(Storage.getAftapninger());
+            }
+        });
+
         fyldPaaFlaskeButton.setOnAction(event -> fyldPaaFlaske());
+
+
+
     }
     private void fyldPaaFlaske(){
+
         ArrayList<Aftapning> aftapningArrayList = new ArrayList<>();
         for (Aftapning selectedItem : aftapningListView.getSelectionModel().getSelectedItems()) {
             aftapningArrayList.add(selectedItem);
@@ -76,11 +84,9 @@ public class AftapningPane extends VBox {
             antalLiterIAlt += Integer.parseInt(literAftap.getText());
         }
         antalLiterIAlt +=  + Integer.parseInt(fortyndingTF.getText());
-        for (int i = 0; i < antalLiterIAlt; i++) {
-            Controller.createProdukt(aftapningArrayList,40);
-        }
-
+            Controller.createProdukt(aftapningArrayList,40, antalLiterIAlt);
         popUpFlaske().showAndWait();
+        updateAftapningLV(Storage.getAftapninger());
     }
     public Stage popUpFlaske(){
          Stage stage = new Stage();
@@ -98,6 +104,11 @@ public class AftapningPane extends VBox {
          pane.add(antalFlasker,1,0);
 
          return stage;
+    }
+
+
+    private void updateAftapningLV(List<Aftapning> aftapningsList){
+        aftapningListView.getItems().setAll(aftapningsList);
     }
 
 }

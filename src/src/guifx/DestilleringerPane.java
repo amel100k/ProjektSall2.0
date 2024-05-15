@@ -102,10 +102,6 @@ public class DestilleringerPane extends VBox {
         getChildren().add(pane);
     }
 
-    public void updateDestillatListView(List<Destillering> destilleringer) {
-        destilleringListView.getItems().setAll(destilleringer);
-    }
-
 
     private void gemButtonAction() {
         if (startDato.getValue().isAfter(slutDato.getValue())) {

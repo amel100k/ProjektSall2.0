@@ -18,7 +18,7 @@ public class Aftapning {
         this.liter = literDerFyldesPåFad;
         this.dato = dato;
     }
-    public void fyldPaaFlaske(int literVand, int literAftap,Aftapning aftapning){
+    public void fyldPaaFlaske(int literVand, int literAftap, Aftapning aftapning){
        int literVæskeIAlt = 0;
         literVæskeIAlt = aftapning.getLiter();
         System.out.println("literVæskeIAlt: " + literVæskeIAlt + ", literaftap: " +literAftap );
@@ -29,6 +29,9 @@ public class Aftapning {
         int antalLiterIAlt = 0;
         antalLiterIAlt = literVand;
         setLiter(literVand - literAftap);
+    }
+    public void lavProdukt(){
+
     }
 
     public void setLiter(int liter) {
@@ -41,11 +44,7 @@ public class Aftapning {
 
     @Override
     public String toString() {
-        return "Aftapning{" +
-                "fad=" + fad +
-                ", destillat=" + destillat +
-                ", literDerFyldesPåFad=" + liter +
-                ", dato=" + dato +
-                '}';
+        return  "fad: " + fad.getFadNavn() +
+                " liter aftap: " + liter;
     }
 }
