@@ -1,14 +1,15 @@
 package guifx;
 import application.controller.Controller;
 import application.model.Fad;
+import application.model.Lager;
+import javafx.animation.FadeTransition;
+import javafx.animation.TranslateTransition;
 import javafx.geometry.Insets;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 import storage.Storage;
 
 public class FadePane extends VBox {
@@ -20,9 +21,13 @@ public class FadePane extends VBox {
     private TextField fadNavn;
     private TextField fadKapacitet;
     private ListView<Fad> fadListView = new ListView<>();
+    private VBox fadeInfoBox;
+    private ComboBox<Lager> lagerComboBox = new ComboBox<>();
+    private LagerPane lagerPane;
 
 
-    public FadePane() {
+    public FadePane(LagerPane lagerPane) {
+        this.lagerPane = lagerPane;
         GridPane pane = new GridPane();
         pane.setPadding(new Insets(10));
         pane.setHgap(10);
@@ -31,7 +36,17 @@ public class FadePane extends VBox {
         fadListView = new ListView<>();
         fadListView.getItems().setAll(Storage.getFade());
         fadListView.setPrefSize(200,150);
-        pane.add(fadListView,0,7,2,1);
+        pane.add(fadListView,0,8,2,1);
+
+        fadeInfoBox = new VBox(5);
+        fadeInfoBox.setPadding(new Insets(10));
+        pane.add(fadeInfoBox, 3, 0, 1, 10);
+
+        fadListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                visFadInfo(newValue);
+            }
+        });
 
         Label fadHistorieLabel = new Label("Fadhistorie:");
         fadHistorie = new TextField();
@@ -63,6 +78,13 @@ public class FadePane extends VBox {
         pane.add(fadKapacitetLabel,0,5);
         pane.add(fadKapacitet,1,5);
 
+        Label fadLagerLabel = new Label("Fadets lager:");
+        pane.add(fadLagerLabel,0,6);
+
+        lagerComboBox = new ComboBox<>();
+        pane.add(lagerComboBox,1,6);
+        lagerComboBox.getItems().setAll(Storage.getLagere());
+
         Button gemButton = new Button("Gem");
         gemButton.setOnAction(event -> gemButtonAction());
         Button annullerButton = new Button("Annuller");
@@ -70,7 +92,7 @@ public class FadePane extends VBox {
         HBox buttonBox = new HBox(10);
         buttonBox.getChildren().addAll(gemButton, annullerButton);
 
-        pane.add(buttonBox, 0, 6, 2, 1);
+        pane.add(buttonBox, 0, 7, 2, 1);
 
         getChildren().add(pane);
     }
@@ -81,8 +103,33 @@ public class FadePane extends VBox {
         String koebsstedValue = koebssted.getText();
         String fadNavnValue = fadNavn.getText();
         int fadKapacitetValue = Integer.parseInt(fadKapacitet.getText());
+        Lager lager = lagerComboBox.getSelectionModel().getSelectedItem();
 
         fadListView.getItems().add(Controller.createFad(fadHistorieValue,tidligereBrugValue,placeringValue,koebsstedValue,
-                fadNavnValue,fadKapacitetValue));
+                fadNavnValue,fadKapacitetValue,lager));
+        //lagerPane.updateFadListView(Storage.getFade());
+    }
+    private void visFadInfo(Fad fad) {
+        fadeInfoBox.getChildren().clear();
+        fadeInfoBox.getChildren().addAll(
+                new Label("Fadhistorie: " + fad.getFadHistore()),
+                new Label("Tidligere brug: " + fad.getTidligereBrug()),
+                new Label("Fadets lagerplacering: " + fad.getPlacering()),
+                new Label("Købssted: " + fad.getKoebssted()),
+                new Label("Fadets navn: " + fad.getFadNavn()),
+                new Label("Fadets kapacitet i liter: " + fad.getFadKapacitet()),
+                new Label("Fadets lager: " + fad.getLager())
+                );
+
+        TranslateTransition tt = new TranslateTransition(Duration.millis(500), fadeInfoBox);
+        tt.setFromY(200);
+        tt.setToY(0);
+
+        FadeTransition ft = new FadeTransition(Duration.millis(500), fadeInfoBox);
+        ft.setFromValue(0.0);
+        ft.setToValue(1.0);
+
+        tt.play();
+        ft.play();
     }
 }

@@ -14,11 +14,11 @@ public class Controller {
         Storage.addDestillering(destillering);
         return destillering;
     }
-    public static Fad createFad(String fadHistore, String tidligereBrug, int placering, String koebssted, String fadNavn, int fadKapacitet){
+    public static Fad createFad(String fadHistore, String tidligereBrug, int placering, String koebssted, String fadNavn, int fadKapacitet, Lager lager){
         if (fadKapacitet < 0) {
             throw new IllegalArgumentException("Kapaciteten kan ikke være negativ");
         }
-        Fad fad = new Fad(fadHistore, tidligereBrug, placering, koebssted, fadNavn, fadKapacitet);
+        Fad fad = new Fad(fadHistore, tidligereBrug, placering, koebssted, fadNavn, fadKapacitet, lager);
         Storage.addFad(fad);
         return fad;
     }

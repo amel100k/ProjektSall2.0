@@ -1,9 +1,6 @@
 package Tests;
 import application.controller.Controller;
-import application.model.Aftapning;
-import application.model.Destillat;
-import application.model.Destillering;
-import application.model.Fad;
+import application.model.*;
 import org.junit.jupiter.api.Test;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -29,19 +26,22 @@ class ControllerTest {
 
     @Test
     void createFadTest() {
-        Fad fad = Controller.createFad("fadHistorie", "tidligereBrug", 1, "koebssted", "fadNavn", 100);
+        Lager lager = new Lager("Vej",10);
+        Fad fad = Controller.createFad("fadHistorie", "tidligereBrug", 1, "koebssted", "fadNavn", 100,lager);
         assertEquals("fadHistorie", fad.getFadHistore());
         assertEquals("tidligereBrug", fad.getTidligereBrug());
     }
 
     @Test
     void createFadUgyldigKapacitet() {
-        assertThrows(IllegalArgumentException.class, () -> Controller.createFad("fadHistorie", "tidligereBrug", 1, "koebssted", "fadNavn", -100));
+        Lager lager = new Lager("Vej",10);
+        assertThrows(IllegalArgumentException.class, () -> Controller.createFad("fadHistorie", "tidligereBrug", 1, "koebssted", "fadNavn", -100,lager));
     }
 
     @Test
     void createAftapningTest() {
-        Fad fad = new Fad("fadHistorie", "tidligereBrug", 1, "koebssted", "fadNavn", 100);
+        Lager lager = new Lager("Vej",10);
+        Fad fad = new Fad("fadHistorie", "tidligereBrug", 1, "koebssted", "fadNavn", 100, lager);
         fad.setMængdePåFad(50);
         ArrayList<Destillat> destillat = new ArrayList<>();
         Aftapning aftapning = Controller.createAftapning(fad, destillat, 50, LocalDate.now());
@@ -50,7 +50,8 @@ class ControllerTest {
 
     @Test
     void createAftapningUgyldigLiter() {
-        Fad fad = new Fad("fadHistorie", "tidligereBrug", 1, "koebssted", "fadNavn", 100);
+        Lager lager = new Lager("Vej",10);
+        Fad fad = new Fad("fadHistorie", "tidligereBrug", 1, "koebssted", "fadNavn", 100,lager);
         fad.setMængdePåFad(50);
         ArrayList<Destillat> destillat = new ArrayList<>();
         assertThrows(IllegalArgumentException.class, () -> Controller.createAftapning(fad, destillat, 150, LocalDate.now()));

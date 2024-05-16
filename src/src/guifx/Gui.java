@@ -31,10 +31,11 @@ public class Gui extends Application{
         pane.add(tabPane,0,0);
         tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
         AftapningPane aftapningPane = new AftapningPane();
+        LagerPane lagerPane = new LagerPane();
 
         Tab fadeTab = new Tab();
         fadeTab.setText("Registrer fad");
-        fadeTab.setContent(new FadePane());
+        fadeTab.setContent(new FadePane(lagerPane));
         tabPane.getTabs().add(fadeTab);
 
         DestillaterPane destillaterPaneTest = new DestillaterPane(aftapningPane);
@@ -55,7 +56,7 @@ public class Gui extends Application{
 
         Tab lagerTab = new Tab();
         lagerTab.setText("Lager oversigt");
-        lagerTab.setContent(new LagerPane());
+        lagerTab.setContent(lagerPane);
         tabPane.getTabs().add(lagerTab);
 
         pane.setStyle("-fx-background-image: url('https://mydailyspace.dk/wp-content/uploads/2021/02/natasha-arefyeva-u1pYVFDS2CI-unsplash-scaled-e1620811866156-772x1024.jpg')");
