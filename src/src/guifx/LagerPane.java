@@ -44,7 +44,7 @@ public class LagerPane extends VBox {
         lagerListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 fadListView.getItems().setAll(newValue.getFade());
-                updateFadListView(Storage.getFade());
+                updateFadListView(newValue.getFade());
             }
         });
 
