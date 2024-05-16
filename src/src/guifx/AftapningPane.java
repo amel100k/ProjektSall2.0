@@ -57,16 +57,8 @@ public class AftapningPane extends VBox {
 
         getChildren().add(pane);
 
-        aftapningListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) ->
-        {
-            if(newValue !=null){
-                updateAftapningLV(Storage.getAftapninger());
-            }
-        });
 
         fyldPaaFlaskeButton.setOnAction(event -> fyldPaaFlaske());
-
-
 
     }
     public void updateAftapningerListView(List<Aftapning> aftapningList){
