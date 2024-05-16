@@ -31,10 +31,20 @@ public class Controller {
         return aftapning;
     }
 
-    public static Produkt createProdukt(ArrayList<Aftapning> aftapningArrayList, int i, int liter) {
+    public static Produkt createProdukt(ArrayList<Aftapning> aftapningArrayList, double i, int liter) {
         Produkt produkt = new Produkt(aftapningArrayList,i,liter);
         Storage.addProdukt(produkt);
         return produkt;
+    }
+    public static double beregnAlkoholProcent(int literAlkoholVæske, double alkohol, int literVand){
+        double mængdeAlkohol = 0;
+        double samLiterVæske = 0;
+        if(literVand == 0){
+            return literAlkoholVæske;
+        }
+        mængdeAlkohol = literAlkoholVæske * alkohol;
+        samLiterVæske = literAlkoholVæske + literVand;
+        return mængdeAlkohol/samLiterVæske;
     }
 
     public Lager createLager(String adresse, int maxAntalFad){

@@ -64,25 +64,40 @@ public class AftapningPane extends VBox {
     public void updateAftapningerListView(List<Aftapning> aftapningList){
         aftapningListView.getItems().setAll(aftapningList);
     }
-    private void fyldPaaFlaske(){
+    private void fyldPaaFlaske() {
+        if (aftapningListView.getSelectionModel().getSelectedItem() != null) {
+            try {
+                    antalLiterIAlt = 0;
+                    ArrayList<Aftapning> aftapningArrayList = new ArrayList<>();
+                    for (Aftapning selectedItem : aftapningListView.getSelectionModel().getSelectedItems()) {
+                        aftapningArrayList.add(selectedItem);
+                    }
+                    for (Aftapning selectedItem : aftapningListView.getSelectionModel().getSelectedItems()) {
+                        selectedItem.fyldPaaFlaske(selectedItem.getLiter(), Integer.parseInt(literAftap.getText()), aftapningListView.getSelectionModel().getSelectedItem());
+                        if (selectedItem.getLiter() == 0) {
+                            aftapningListView.getItems().remove(selectedItem);
+                        }
+                        antalLiterIAlt += Integer.parseInt(literAftap.getText());
+                    }
+                    antalLiterIAlt += +Integer.parseInt(fortyndingTF.getText());
+                    //double test = Controller.beregnAlkoholProcent(aftapningArrayList.getFirst().getLiter(),aftapningArrayList.getFirst().getDestillat().getFirst().getAlkoholProcent(),Integer.parseInt(literAftap.getText()));
+                double test = 40;
+                Produkt produkt = Controller.createProdukt(aftapningArrayList, test, antalLiterIAlt);
+                    popUpFlaske().showAndWait();
+                    flaskeListView.getItems().add(produkt);
+                    updateAftapningLV(Storage.getAftapninger());
 
-        ArrayList<Aftapning> aftapningArrayList = new ArrayList<>();
-        for (Aftapning selectedItem : aftapningListView.getSelectionModel().getSelectedItems()) {
-            aftapningArrayList.add(selectedItem);
-
-        }
-        for (Aftapning selectedItem : aftapningListView.getSelectionModel().getSelectedItems()) {
-            selectedItem.fyldPaaFlaske(selectedItem.getLiter(),Integer.parseInt(literAftap.getText()),aftapningListView.getSelectionModel().getSelectedItem());
-            if(selectedItem.getLiter() == 0){
-                aftapningListView.getItems().remove(selectedItem);
+            } catch (NumberFormatException e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setContentText("Indtast venligst et nummer som mængden");
+                alert.showAndWait();
             }
-            antalLiterIAlt += Integer.parseInt(literAftap.getText());
         }
-        antalLiterIAlt +=  + Integer.parseInt(fortyndingTF.getText());
-            Produkt produkt = Controller.createProdukt(aftapningArrayList,40, antalLiterIAlt);
-        popUpFlaske().showAndWait();
-        flaskeListView.getItems().add(produkt);
-        updateAftapningLV(Storage.getAftapninger());
+        else{
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("Vælg et fad");
+            alert.showAndWait();
+        }
     }
     public Stage popUpFlaske(){
          Stage stage = new Stage();
@@ -98,7 +113,6 @@ public class AftapningPane extends VBox {
          antalFlasker = new Label();
          antalFlasker.setText("" + antalLiterIAlt + " flasker whiskey");
          pane.add(antalFlasker,1,0);
-
          return stage;
     }
 

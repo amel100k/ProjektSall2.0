@@ -30,11 +30,9 @@ public class Destillering {
 
     @Override
     public String toString() {
-        return "Destillering: " + "Start dato: " + startDato + ", Slut dato: " +
-                slutDato + ", Maltbatch i gram: " + maltbatchIGram +
-                ", Kornsort: '" + kornsort + '\'' + ", Væskemængde i ml: " + væskeMængdeIMl
-                + ", Alkoholprocent: " + alkoholprocent + ", Kommentar: '" + kommentar + '\''
-                + ", Rygemateriale: '" + rygemateriale + '\'';
+        return kornsort + ", " +
+                væskeMængdeIMl + "L, " +
+                  startDato;
     }
 
     public LocalDate getStartDato() {
