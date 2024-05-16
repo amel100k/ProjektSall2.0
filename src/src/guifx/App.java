@@ -39,7 +39,7 @@ public class App {
         Produkt produkt1 = new Produkt(new ArrayList<Aftapning>(List.of(aftapning1)),40, 10);
         Storage.addProdukt(produkt1);
 
-        lager2.addFad(fad);
+        lager1.addFad(fad);
 
     }
 
