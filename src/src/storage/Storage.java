@@ -10,7 +10,8 @@ public class Storage {
     private static ArrayList<Destillering> destilleringer = new ArrayList<>();
     private static ArrayList<Destillat> destillater = new ArrayList<>();
     private static ArrayList<Aftapning> aftapninger = new ArrayList<>();
-    private  static ArrayList<Produkt> flasker = new ArrayList<>();
+    private static ArrayList<Produkt> flasker = new ArrayList<>();
+    private static ArrayList<Lager> lagere = new ArrayList<>();
     public static void addDestillering(Destillering destillering) {
         destilleringer.add(destillering);
     }
@@ -25,6 +26,12 @@ public class Storage {
     }
     public static void addProdukt(Produkt flakse){
         flasker.add(flakse);
+    }
+    public static void addLager(Lager lager){
+        lagere.add(lager);
+    }
+    public static ArrayList<Lager> getLagere() {
+        return lagere;
     }
 
     public static ArrayList<Fad> getFade() {

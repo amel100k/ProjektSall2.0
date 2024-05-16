@@ -44,4 +44,11 @@ public class Lager {
     public ArrayList<Fad> getFade() {
         return fade;
     }
+
+    @Override
+    public String toString() {
+        return "Lager: " +
+                "adresse: '" + adresse + '\'' +
+                ", maxAntalFad: " + maxAntalFad;
+    }
 }
