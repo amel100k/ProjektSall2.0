@@ -23,7 +23,7 @@ public class PopupWindowDestillat {
         TextField alkoholprocentField = new TextField();
         pane.add(alkoholprocentField,1,0);
 
-        Label mængdeLabel = new Label("Indtast mængde:");
+        Label mængdeLabel = new Label("Indtast mængde i liter:");
         pane.add(mængdeLabel,0,1);
 
         TextField mængdeField = new TextField();

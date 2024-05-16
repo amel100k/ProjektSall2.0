@@ -204,8 +204,8 @@ public class DestilleringerPane extends VBox {
         );
 
         TranslateTransition tt = new TranslateTransition(Duration.millis(500), destilleringInfoBox);
-        tt.setFromX(-100);
-        tt.setToX(0);
+        tt.setFromY(200);
+        tt.setToY(0);
 
         FadeTransition ft = new FadeTransition(Duration.millis(500), destilleringInfoBox);
         ft.setFromValue(0.0);
