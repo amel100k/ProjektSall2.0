@@ -2,14 +2,13 @@ package guifx;
 import application.controller.Controller;
 import application.model.Fad;
 import javafx.geometry.Insets;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import storage.Storage;
+
+import java.util.Optional;
 
 public class FadePane extends VBox {
     private Fad fad;
@@ -66,6 +65,7 @@ public class FadePane extends VBox {
         Button gemButton = new Button("Gem");
         gemButton.setOnAction(event -> gemButtonAction());
         Button annullerButton = new Button("Annuller");
+        annullerButton.setOnAction(event -> annullerButtonAction());
 
         HBox buttonBox = new HBox(10);
         buttonBox.getChildren().addAll(gemButton, annullerButton);
@@ -74,6 +74,7 @@ public class FadePane extends VBox {
 
         getChildren().add(pane);
     }
+
     private void gemButtonAction(){
         String fadHistorieValue = fadHistorie.getText();
         String tidligereBrugValue = tidligereBruger.getText();
@@ -84,5 +85,21 @@ public class FadePane extends VBox {
 
         fadListView.getItems().add(Controller.createFad(fadHistorieValue,tidligereBrugValue,placeringValue,koebsstedValue,
                 fadNavnValue,fadKapacitetValue));
+    }
+
+    private void annullerButtonAction() {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Bekræft Annullering");
+        alert.setHeaderText(null);
+        alert.setContentText("Er du sikker på, at du vil annullere og starte forfra?");
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK){
+            fadHistorie.clear();
+            fadNavn.clear();
+            tidligereBruger.clear();
+            placering.clear();
+            koebssted.clear();
+            fadKapacitet.clear();
+        }
     }
 }

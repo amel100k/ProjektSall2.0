@@ -37,7 +37,6 @@ public class App {
         lager2.addFad(fad);
         Storage.addLager(lager1);
         Storage.addLager(lager2);
-
     }
 
 }
