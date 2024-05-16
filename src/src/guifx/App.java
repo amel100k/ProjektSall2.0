@@ -31,6 +31,11 @@ public class App {
 
         Produkt produkt1 = new Produkt(new ArrayList<Aftapning>(List.of(aftapning1)),40, 10);
         Storage.addProdukt(produkt1);
+
+        Lager lager1 = new Lager("Hjemme", 10);
+        Lager lager2 = new Lager("Ude", 20);
+        Storage.addLager(lager1);
+        Storage.addLager(lager2);
     }
 
 }
