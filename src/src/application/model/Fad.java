@@ -1,7 +1,5 @@
 package application.model;
 
-import java.util.ArrayList;
-
 public class Fad {
     private String fadHistore;
     private String tidligereBrug;

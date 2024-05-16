@@ -34,8 +34,10 @@ public class App {
 
         Lager lager1 = new Lager("Hjemme", 10);
         Lager lager2 = new Lager("Ude", 20);
+        lager2.addFad(fad);
         Storage.addLager(lager1);
         Storage.addLager(lager2);
+
     }
 
 }

@@ -48,7 +48,7 @@ public class Lager {
     @Override
     public String toString() {
         return "Lager: " +
-                "adresse: '" + adresse + '\'' +
-                ", maxAntalFad: " + maxAntalFad;
+                "Adresse: '" + adresse + '\'' +
+                ", MaxAntalFad: " + maxAntalFad;
     }
 }
