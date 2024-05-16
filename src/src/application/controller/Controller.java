@@ -40,7 +40,7 @@ public class Controller {
         double mængdeAlkohol = 0;
         double samLiterVæske = 0;
         if(literVand == 0){
-            return literAlkoholVæske;
+            return alkohol;
         }
         mængdeAlkohol = literAlkoholVæske * alkohol;
         samLiterVæske = literAlkoholVæske + literVand;
