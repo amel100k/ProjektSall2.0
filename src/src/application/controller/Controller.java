@@ -47,8 +47,10 @@ public class Controller {
         return mængdeAlkohol/samLiterVæske;
     }
 
-    public Lager createLager(String adresse, int maxAntalFad){
-        return new Lager(adresse, maxAntalFad);
+    public static Lager createLager(String adresse, int maxAntalFad){
+        Lager lager = new Lager(adresse, maxAntalFad);
+        Storage.addLager(lager);
+        return lager;
     }
 
 }
