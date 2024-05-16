@@ -74,6 +74,7 @@ public class AftapningPane extends VBox {
     }
     private void fyldPaaFlaske(){
 
+
         ArrayList<Aftapning> aftapningArrayList = new ArrayList<>();
         for (Aftapning selectedItem : aftapningListView.getSelectionModel().getSelectedItems()) {
             aftapningArrayList.add(selectedItem);
