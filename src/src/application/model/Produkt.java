@@ -35,6 +35,6 @@ public class Produkt {
     @Override
     public String toString() {
         return "Alkohol%:" + alkoholprocent +
-                " Liter:" + kapacitetILiter;
+                " Mængde" + kapacitetILiter + "L";
     }
 }

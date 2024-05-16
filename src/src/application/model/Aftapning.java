@@ -21,8 +21,6 @@ public class Aftapning {
     public void fyldPaaFlaske(int literVand, int literAftap, Aftapning aftapning){
        int literVæskeIAlt = 0;
         literVæskeIAlt = aftapning.getLiter();
-        System.out.println("literVæskeIAlt: " + literVæskeIAlt + ", literaftap: " +literAftap );
-
         if(literVæskeIAlt < literAftap){
             throw new IllegalArgumentException("Du kan ikke tappe mere end der er væske");
         }
@@ -30,8 +28,9 @@ public class Aftapning {
         antalLiterIAlt = literVand;
         setLiter(literVand - literAftap);
     }
-    public void lavProdukt(){
 
+    public ArrayList<Destillat> getDestillat() {
+        return destillat;
     }
 
     public void setLiter(int liter) {

@@ -21,8 +21,7 @@ public class Destillat {
 
     @Override
     public String toString() {
-        return "Destillat: " +
-                "alkoholProcent: " + alkoholProcent +
-                ", mængde: " + mængde;
+        return "Alkoholprocent: " + alkoholProcent +
+                ", Liter: " + mængde.getMængde() + "L";
     }
 }
