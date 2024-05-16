@@ -32,6 +32,7 @@ public class Gui extends Application{
         tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
         AftapningPane aftapningPane = new AftapningPane();
         LagerPane lagerPane = new LagerPane();
+        FlytWhiskyPane flytWhiskyPane = new FlytWhiskyPane();
 
         Tab fadeTab = new Tab();
         fadeTab.setText("Registrer fad");
@@ -58,6 +59,11 @@ public class Gui extends Application{
         lagerTab.setText("Lager oversigt");
         lagerTab.setContent(lagerPane);
         tabPane.getTabs().add(lagerTab);
+
+        Tab flytWhiskyTilAndetFad = new Tab();
+        flytWhiskyTilAndetFad.setText("Flyt whisky til nyt fad");
+        flytWhiskyTilAndetFad.setContent(flytWhiskyPane);
+        tabPane.getTabs().add(flytWhiskyTilAndetFad);
 
         pane.setStyle("-fx-background-image: url('https://mydailyspace.dk/wp-content/uploads/2021/02/natasha-arefyeva-u1pYVFDS2CI-unsplash-scaled-e1620811866156-772x1024.jpg')");
     }

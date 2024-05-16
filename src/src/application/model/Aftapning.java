@@ -28,6 +28,12 @@ public class Aftapning {
         antalLiterIAlt = literVand;
         setLiter(literVand - literAftap);
     }
+    public void flytTilFad(int antalLiter){
+        if (antalLiter > liter){
+            throw new IllegalArgumentException("Mængde overskrider tilgængelig plads i fad");
+        }
+        liter -= antalLiter;
+    }
 
     public ArrayList<Destillat> getDestillat() {
         return destillat;

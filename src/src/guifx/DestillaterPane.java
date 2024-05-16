@@ -84,14 +84,12 @@ public class DestillaterPane extends VBox {
             }
         });
 
-        // Tilføj en lytter til valg af fad
         fadListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 updateLedigPladsLabel(newValue);
             }
         });
 
-        // Tilføj en handling til knappen "Fyld på fad"
         fyldPaaFadButton.setOnAction(event -> fyldPaFad());
     }
 
@@ -127,7 +125,6 @@ public class DestillaterPane extends VBox {
                     updateLedigPladsLabel(selectedFad);
                     valgteDestillatListView.getItems().addAll(selectedDestillater);
 
-                    // Opret aftapning med valgte destillater
                     Controller.createAftapning(selectedFad, new ArrayList<>(selectedDestillater), mængde, LocalDate.now());
                     aftapningPane.updateAftapningerListView(Storage.getAftapninger());
 
