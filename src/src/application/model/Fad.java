@@ -11,7 +11,7 @@ public class Fad {
     private Produkt produkt;
     private Lager lager;
 
-    public Fad(String fadHistore, String tidligereBrug, int placering, String koebssted, String fadNavn, int fadKapacitet) {
+    public Fad(String fadHistore, String tidligereBrug, int placering, String koebssted, String fadNavn, int fadKapacitet, Lager lager) {
         this.fadHistore = fadHistore;
         this.tidligereBrug = tidligereBrug;
         this.placering = placering;
@@ -19,6 +19,7 @@ public class Fad {
         this.fadNavn = fadNavn;
         this.fadKapacitet = fadKapacitet;
         this.mængdePåFad = 0;
+        this.lager = lager;
     }
 
     public String getFadHistore() {
@@ -54,6 +55,10 @@ public class Fad {
 
     public void setMængdePåFad(int mængdePåFad) {
         this.mængdePåFad = mængdePåFad;
+    }
+
+    public Lager getLager() {
+        return lager;
     }
 
     public void setLager(Lager lager) {

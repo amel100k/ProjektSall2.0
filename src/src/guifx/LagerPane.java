@@ -11,6 +11,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import storage.Storage;
 
+import java.util.List;
 import java.util.Optional;
 
 public class LagerPane extends VBox {
@@ -43,6 +44,7 @@ public class LagerPane extends VBox {
         lagerListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 fadListView.getItems().setAll(newValue.getFade());
+                updateFadListView(Storage.getFade());
             }
         });
 
@@ -77,6 +79,9 @@ public class LagerPane extends VBox {
 
         this.getChildren().add(pane);
 
+    }
+    public void updateFadListView(List<Fad> fadList){
+        fadListView.getItems().setAll(fadList);
     }
 
     private void annullerButtonAction() {
