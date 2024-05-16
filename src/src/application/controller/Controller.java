@@ -36,4 +36,9 @@ public class Controller {
         Storage.addProdukt(produkt);
         return produkt;
     }
+
+    public Lager createLager(String adresse, int maxAntalFad){
+        return new Lager(adresse, maxAntalFad);
+    }
+
 }

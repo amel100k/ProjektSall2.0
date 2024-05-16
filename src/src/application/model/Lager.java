@@ -25,6 +25,7 @@ public class Lager {
             throw new IllegalArgumentException("Der er ikke plads til flere fade på lageret!");
         }
     }
+
     public void removeFad(Fad fad){
         if (fade.contains(fad)){
             fade.remove(fad);

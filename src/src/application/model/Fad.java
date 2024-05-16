@@ -11,6 +11,8 @@ public class Fad {
     private int fadKapacitet;
     private int mængdePåFad;
     private Produkt produkt;
+    private Lager lager;
+
     public Fad(String fadHistore, String tidligereBrug, int placering, String koebssted, String fadNavn, int fadKapacitet) {
         this.fadHistore = fadHistore;
         this.tidligereBrug = tidligereBrug;
@@ -56,12 +58,17 @@ public class Fad {
         this.mængdePåFad = mængdePåFad;
     }
 
+    public void setLager(Lager lager) {
+        this.lager = lager;
+    }
+
     public void fyldPåFad(int mængde) {
         if (mængde > getLedigPlads()) {
             throw new IllegalArgumentException("Mængde overskrider tilgængelig plads i fad");
         }
         mængdePåFad += mængde;
     }
+
     public void fyldPaaFlaske(Fad fad, int mængde){
         if(mængde < fad.getMængdePåFad()){
             fad.setMængdePåFad(fad.getFadKapacitet() - mængde);
