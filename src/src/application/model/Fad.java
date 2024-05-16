@@ -10,7 +10,6 @@ public class Fad {
     private String fadNavn;
     private int fadKapacitet;
     private int mængdePåFad;
-    ArrayList<Destillat> destillater = new ArrayList<>();
     private Produkt produkt;
     public Fad(String fadHistore, String tidligereBrug, int placering, String koebssted, String fadNavn, int fadKapacitet) {
         this.fadHistore = fadHistore;
@@ -51,9 +50,6 @@ public class Fad {
     }
     public int getLedigPlads(){
         return fadKapacitet-mængdePåFad;
-    }
-    public ArrayList<Destillat> getDestillater() {
-        return destillater;
     }
 
     public void setMængdePåFad(int mængdePåFad) {
