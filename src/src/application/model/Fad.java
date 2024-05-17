@@ -69,6 +69,7 @@ public class Fad {
         this.lager = lager;
     }
 
+
     public void fyldPåFad(int mængde) {
         if (mængde > getLedigPlads()) {
             throw new IllegalArgumentException("Mængde overskrider tilgængelig plads i fad");

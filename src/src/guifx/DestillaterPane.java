@@ -125,8 +125,11 @@ public class DestillaterPane extends VBox {
                     updateLedigPladsLabel(selectedFad);
                     valgteDestillatListView.getItems().addAll(selectedDestillater);
 
+
                     Controller.createAftapning(selectedFad, new ArrayList<>(selectedDestillater), mængde, LocalDate.now());
+                    mængde = 0;
                     aftapningPane.updateAftapningerListView(Storage.getAftapninger());
+
 
                 } else {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
