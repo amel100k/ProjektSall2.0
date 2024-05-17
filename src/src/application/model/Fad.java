@@ -46,6 +46,10 @@ public class Fad {
         return fadKapacitet;
     }
 
+    public void setFadKapacitet(int fadKapacitet) {
+        this.fadKapacitet = fadKapacitet;
+    }
+
     public int getMængdePåFad() {
         return mængdePåFad;
     }

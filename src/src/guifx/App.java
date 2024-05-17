@@ -29,7 +29,8 @@ public class App {
         Fad fad2 = new Fad("Poggers", "ingen",10,"Søborg","sejsej",70, lager2);
         Storage.addFad(fad);
         Storage.addFad(fad2);
-        lager2.addFad(fad);
+        lager1.addFad(fad);
+        lager2.addFad(fad2);
 
         Aftapning aftapning1 = new Aftapning(fad,Storage.getDestillater(),50,LocalDate.now());
         Aftapning aftapning2 = new Aftapning(fad2,Storage.getDestillater(),50,LocalDate.now());
@@ -39,7 +40,6 @@ public class App {
         Produkt produkt1 = new Produkt(new ArrayList<Aftapning>(List.of(aftapning1)),40, 10);
         Storage.addProdukt(produkt1);
 
-        lager1.addFad(fad);
 
     }
 
