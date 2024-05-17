@@ -69,23 +69,19 @@ public class FlytWhiskyPane extends VBox {
         Fad selectedFad = fadListView.getSelectionModel().getSelectedItem();
         int antalLiter = Integer.parseInt(literTextField.getText());
 
-        if (selectedAftapning != null & selectedFad != null){
+        if (selectedAftapning != null && selectedFad != null) {
+            try {
+
             selectedAftapning.flytTilFad(antalLiter);
             selectedFad.fyldPåFad(antalLiter);
             updateLedigPladsLabel(selectedFad);
         }
-        else if (selectedAftapning.getLiter() < antalLiter){
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setContentText("Der er ikke så mange litere!");
+        catch (NumberFormatException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("Indtast venligst et nummer som mængden");
             alert.showAndWait();
         }
-        else if (selectedFad.getLedigPlads() < antalLiter) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setContentText("Der er ikke nok plads på fadet!");
-            alert.showAndWait();
         }
-
-        // Nulstil inputfelter
         aftapningListView.getSelectionModel().clearSelection();
         fadListView.getSelectionModel().clearSelection();
         literTextField.clear();
