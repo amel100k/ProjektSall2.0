@@ -1,22 +1,20 @@
 package application.model;
 
-import application.controller.Controller;
-import storage.Storage;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.time.Period;
 
 public class Aftapning {
     private Fad fad;
     private ArrayList<Destillat> destillat;
     private int liter;
-    private LocalDate dato;
+    private LocalDate startDato;
 
-    public Aftapning(Fad fad, ArrayList<Destillat> destillat, int literDerFyldesPåFad, LocalDate dato) {
+    public Aftapning(Fad fad, ArrayList<Destillat> destillat, int literDerFyldesPåFad, LocalDate startDato) {
         this.fad = fad;
         this.destillat = destillat;
         this.liter = literDerFyldesPåFad;
-        this.dato = dato;
+        this.startDato = startDato;
     }
     public void fyldPaaFlaske(int literVand, int literAftap, Aftapning aftapning){
        int literVæskeIAlt = 0;
@@ -33,6 +31,11 @@ public class Aftapning {
             throw new IllegalArgumentException("Mængde overskrider tilgængelig plads i fad");
         }
         liter -= antalLiter;
+    }
+
+    public boolean erTreAarSidenStartDato() {
+        Period period = Period.between(startDato, LocalDate.now());
+        return period.getYears() >= 3;
     }
 
     public ArrayList<Destillat> getDestillat() {

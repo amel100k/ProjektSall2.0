@@ -1,6 +1,7 @@
 package guifx;
 
 import application.controller.Controller;
+import application.model.Aftapning;
 import application.model.Destillering;
 import application.model.Fad;
 import application.model.Lager;
@@ -20,6 +21,7 @@ public class LagerPane extends VBox {
     private ListView<Fad> fadListView;
     private TextField adresse;
     private TextField maxAntalFad;
+    private ListView<Aftapning> aftapningListView;
 
     public LagerPane() {
         GridPane pane = new GridPane();
@@ -41,12 +43,22 @@ public class LagerPane extends VBox {
         fadListView.setPrefSize(250, 100);
         pane.add(fadListView, 17, 3, 1, 1);
         fadListView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+
+
+        aftapningListView = new ListView<>();
+        aftapningListView.getItems().setAll(Storage.getAftapninger());
+        aftapningListView.setPrefSize(250, 100);
+        pane.add(aftapningListView, 17, 5, 1, 1);
+
         lagerListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             //Lager selectedLager = lagerListView.getSelectionModel().getSelectedItem();
             if (newValue != null) {
                 fadListView.getItems().setAll(newValue.getFade());
             }
         });
+
+        Label klareFadeLabel = new Label("Færdiglagret fade:");
+        pane.add(klareFadeLabel, 17, 4);
 
         Label opretLagerLabel = new Label("Opret lager:");
         pane.add(opretLagerLabel, 1, 0);
@@ -102,4 +114,6 @@ public class LagerPane extends VBox {
 
           lagerListView.getItems().add(Controller.createLager(adresse1, maxAntalFadValue));
     }
+
+
 }

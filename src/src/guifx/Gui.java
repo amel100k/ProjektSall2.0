@@ -5,6 +5,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+
 public class Gui extends Application{
     @Override
     public void start(Stage stage) throws Exception {
