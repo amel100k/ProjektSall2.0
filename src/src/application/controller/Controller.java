@@ -42,9 +42,9 @@ public class Controller {
         if(literVand == 0){
             return alkohol;
         }
-        mængdeAlkohol = literAlkoholVæske * alkohol;
+        mængdeAlkohol = literAlkoholVæske * (alkohol/100);
         samLiterVæske = literAlkoholVæske + literVand;
-        return mængdeAlkohol/samLiterVæske;
+        return mængdeAlkohol/samLiterVæske * 100;
     }
 
     public static Lager createLager(String adresse, int maxAntalFad){

@@ -83,7 +83,7 @@ public class AftapningPane extends VBox {
                     antalLiterIAlt += Integer.parseInt(literAftap.getText());
                 }
                 antalLiterIAlt += +Integer.parseInt(fortyndingTF.getText());
-                double test = Controller.beregnAlkoholProcent(aftapningArrayList.getFirst().getLiter(), aftapningArrayList.getFirst().getDestillat().getFirst().getAlkoholProcent(), Integer.parseInt(fortyndingTF.getText()));
+                double test = Controller.beregnAlkoholProcent(Integer.parseInt(literAftap.getText()), aftapningArrayList.getFirst().getDestillat().getFirst().getAlkoholProcent(), Integer.parseInt(fortyndingTF.getText()));
                 Produkt produkt = Controller.createProdukt(aftapningArrayList, test, antalLiterIAlt);
                 popUpFlaske().showAndWait();
                 flaskeListView.getItems().add(produkt);
@@ -109,12 +109,9 @@ public class AftapningPane extends VBox {
         Scene scene = new Scene(pane);
         stage.setScene(scene);
 
-        testLbl = new Label("Med " + antalLiterIAlt + "L væske har du lavet: ");
+        testLbl = new Label("Du har lavet: " + antalLiterIAlt + "L produkt");
         pane.add(testLbl, 0, 0);
 
-        antalFlasker = new Label();
-        antalFlasker.setText("" + antalLiterIAlt + " flasker whiskey");
-        pane.add(antalFlasker, 1, 0);
         return stage;
     }
 
