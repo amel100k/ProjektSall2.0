@@ -6,7 +6,7 @@ public class Produkt {
     private ArrayList<Aftapning> aftapninger;
     private int kapacitetILiter;
     private double alkoholprocent;
-    public Produkt(ArrayList<Aftapning> aftapninger, double alkoholprocent, int kapacitetILiter) {
+    public Produkt(Aftapning aftapning, double alkoholprocent, int kapacitetILiter) {
         this.aftapninger = aftapninger;
         this.kapacitetILiter = kapacitetILiter;
         this.alkoholprocent = alkoholprocent;

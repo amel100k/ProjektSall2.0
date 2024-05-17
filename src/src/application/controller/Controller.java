@@ -31,20 +31,22 @@ public class Controller {
         return aftapning;
     }
 
-    public static Produkt createProdukt(ArrayList<Aftapning> aftapningArrayList, double i, int liter) {
-        Produkt produkt = new Produkt(aftapningArrayList,i,liter);
+    public static Produkt createProdukt(Aftapning aftapning, double i, int liter) {
+        Produkt produkt = new Produkt(aftapning,i,liter);
         Storage.addProdukt(produkt);
         return produkt;
     }
-    public static double beregnAlkoholProcent(int literAlkoholVæske, double alkohol, int literVand){
+
+    public static double testBeregn(Aftapning aftapning, int literAlkohol, int literVand){
         double mængdeAlkohol = 0;
-        double samLiterVæske = 0;
+        aftapning.fyldPaaFlaske(aftapning.getLiter(),literAlkohol, aftapning);
+
+        int antalLiterVæske = literAlkohol + literVand;
         if(literVand == 0){
-            return literAlkoholVæske;
+            return aftapning.getDestillat().getFirst().getAlkoholProcent();
         }
-        mængdeAlkohol = literAlkoholVæske * alkohol;
-        samLiterVæske = literAlkoholVæske + literVand;
-        return mængdeAlkohol/samLiterVæske;
+        mængdeAlkohol = literAlkohol * aftapning.getDestillat().getFirst().getAlkoholProcent() / 100;
+        return mængdeAlkohol / antalLiterVæske * 100;
     }
 
     public static Lager createLager(String adresse, int maxAntalFad){

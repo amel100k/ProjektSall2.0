@@ -37,7 +37,7 @@ public class App {
         Storage.addAftapning(aftapning1);
         Storage.addAftapning(aftapning2);
 
-        Produkt produkt1 = new Produkt(new ArrayList<Aftapning>(List.of(aftapning1)),40, 10);
+        Produkt produkt1 = new Produkt(aftapning1,40, 10);
         Storage.addProdukt(produkt1);
 
 

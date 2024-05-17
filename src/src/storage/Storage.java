@@ -24,8 +24,14 @@ public class Storage {
     public static void addAftapning(Aftapning aftapning){
         aftapninger.add(aftapning);
     }
+    public static void removeAftapning(Aftapning aftapning){
+        aftapninger.remove(aftapning);
+    }
     public static void addProdukt(Produkt flakse){
         flasker.add(flakse);
+    }
+    public static void removeProdukt(Produkt produkt){
+        flasker.remove(produkt);
     }
     public static void addLager(Lager lager){
         lagere.add(lager);
