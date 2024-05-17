@@ -71,20 +71,13 @@ public class AftapningPane extends VBox {
         if (aftapningListView.getSelectionModel().getSelectedItem() != null) {
             try {
                 antalLiterIAlt = 0;
-                ArrayList<Aftapning> aftapningArrayList = new ArrayList<>();
-                for (Aftapning selectedItem : aftapningListView.getSelectionModel().getSelectedItems()) {
-                    aftapningArrayList.add(selectedItem);
-                }
-                for (Aftapning selectedItem : aftapningListView.getSelectionModel().getSelectedItems()) {
-                    selectedItem.fyldPaaFlaske(selectedItem.getLiter(), Integer.parseInt(literAftap.getText()), aftapningListView.getSelectionModel().getSelectedItem());
-                    if (selectedItem.getLiter() == 0) {
-                        aftapningListView.getItems().remove(selectedItem);
-                    }
-                    antalLiterIAlt += Integer.parseInt(literAftap.getText());
-                }
-                antalLiterIAlt += +Integer.parseInt(fortyndingTF.getText());
-                double test = Controller.beregnAlkoholProcent(Integer.parseInt(literAftap.getText()), aftapningArrayList.getFirst().getDestillat().getFirst().getAlkoholProcent(), Integer.parseInt(fortyndingTF.getText()));
-                Produkt produkt = Controller.createProdukt(aftapningArrayList, test, antalLiterIAlt);
+                antalLiterIAlt += Integer.parseInt(literAftap.getText());
+                Aftapning test = aftapningListView.getSelectionModel().getSelectedItem();
+
+                antalLiterIAlt += Integer.parseInt(fortyndingTF.getText());
+                double beregnTest = Controller.testBeregn(test,Integer.parseInt(literAftap.getText()), Integer.parseInt(fortyndingTF.getText()));
+                Produkt produkt = Controller.createProdukt(test, beregnTest,antalLiterIAlt);
+
                 popUpFlaske().showAndWait();
                 flaskeListView.getItems().add(produkt);
                 updateAftapningLV(Storage.getAftapninger());
