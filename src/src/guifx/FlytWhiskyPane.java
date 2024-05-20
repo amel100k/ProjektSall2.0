@@ -1,5 +1,6 @@
 package guifx;
 
+import application.controller.Controller;
 import application.model.Aftapning;
 import application.model.Fad;
 import application.model.Mængde;
@@ -9,14 +10,18 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import storage.Storage;
 
+import java.time.LocalDate;
+
 public class FlytWhiskyPane extends VBox {
     private ListView<Aftapning> aftapningListView;
     private ListView<Fad> fadListView;
     private TextField literTextField;
     private Button flytWhiskyButton;
     private Label ledigPladsLabel;
+    private AftapningPane aftapningPane;
 
-    public FlytWhiskyPane() {
+    public FlytWhiskyPane(AftapningPane aftapningPane) {
+        this.aftapningPane = aftapningPane;
         GridPane pane = new GridPane();
         pane.setHgap(10);
         pane.setVgap(10);
@@ -71,16 +76,31 @@ public class FlytWhiskyPane extends VBox {
 
         if (selectedAftapning != null && selectedFad != null) {
             try {
-
-            selectedAftapning.flytTilFad(antalLiter);
-            selectedFad.fyldPåFad(antalLiter);
-            updateLedigPladsLabel(selectedFad);
+            if (antalLiter <= selectedFad.getLedigPlads() && antalLiter <= selectedAftapning.getLiter()) {
+                selectedAftapning.flytTilFad(antalLiter);
+                selectedFad.fyldPåFad(antalLiter);
+                updateLedigPladsLabel(selectedFad);
+                Controller.createAftapning(selectedFad,selectedAftapning.getDestillat(),antalLiter, LocalDate.now());
+                aftapningPane.updateAftapningerListView(Storage.getAftapninger());
+            }
+            else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setHeaderText("MANGEL PÅ PLADS!");
+                alert.setContentText("Du har indtastet et antal liter der overskrider den ledige plads på fadet eller aftapningen!");
+                alert.showAndWait();
+            }
         }
         catch (NumberFormatException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText("Indtast venligst et nummer som mængden");
             alert.showAndWait();
         }
+        }
+        else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText("FEJL!");
+            alert.setContentText("Vælg mindst ét destillat og et fad");
+            alert.showAndWait();
         }
         aftapningListView.getSelectionModel().clearSelection();
         fadListView.getSelectionModel().clearSelection();
