@@ -1,13 +1,23 @@
 package application.model;
 
 public class Mængde {
-    private int mængde;
+    private int mængdePåDestillat;
+    private int mængdeBrugt = 0;
 
-    public Mængde(int mængde) {
-        this.mængde = mængde;
+    public Mængde(int mængdePåDestillat) {
+        this.mængdePåDestillat = mængdePåDestillat;
+    }
+    public void opdaterMængde(int mængde){
+        mængdeBrugt += mængde;
+    }
+    public int opdaterMængde2(){
+        return mængdePåDestillat -= mængdeBrugt;
+    }
+    public void resetMængdeBrugt(){
+        mængdeBrugt = 0;
     }
 
-    public int getMængde() {
-        return mængde;
+    public int getMængdePåDestillat() {
+        return mængdePåDestillat;
     }
 }

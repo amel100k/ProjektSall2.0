@@ -72,10 +72,11 @@ public class FlytWhiskyPane extends VBox {
     private void flytWhisky() {
         Aftapning selectedAftapning = aftapningListView.getSelectionModel().getSelectedItem();
         Fad selectedFad = fadListView.getSelectionModel().getSelectedItem();
-        int antalLiter = Integer.parseInt(literTextField.getText());
+        int antalLiter;
 
         if (selectedAftapning != null && selectedFad != null) {
             try {
+                antalLiter = Integer.parseInt(literTextField.getText());
             if (antalLiter <= selectedFad.getLedigPlads() && antalLiter <= selectedAftapning.getLiter()) {
                 selectedAftapning.flytTilFad(antalLiter);
                 selectedFad.fyldPåFad(antalLiter);

@@ -50,9 +50,17 @@ public class Aftapning {
         return liter;
     }
 
+    public Fad getFad() {
+        return fad;
+    }
+
+    public LocalDate getStartDato() {
+        return startDato;
+    }
+
     @Override
     public String toString() {
-        return  "fad: " + fad.getFadNavn() +
-                " liter aftap: " + liter;
+        return  "Aftap fra fad: " + fad.getFadNavn() + ", " +
+                "Antal liter klar til aftapning: " + liter;
     }
 }

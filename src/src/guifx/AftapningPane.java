@@ -2,6 +2,7 @@ package guifx;
 
 import application.controller.Controller;
 import application.model.Aftapning;
+import application.model.Destillat;
 import application.model.Produkt;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -23,6 +24,7 @@ public class AftapningPane extends VBox {
     int antalLiterIAlt = 0;
     private Label antalFlasker;
     private AftapningPane aftapningPane;
+    private VBox aftapningInfoBox;
 
     public AftapningPane() {
         GridPane pane = new GridPane();
@@ -56,15 +58,31 @@ public class AftapningPane extends VBox {
         literAftap.setPromptText("Liter aftapning");
         pane.add(literAftap, 1, 2);
 
-        getChildren().add(pane);
+        aftapningInfoBox = new VBox();
+        pane.add(aftapningInfoBox,0,5);
 
+        getChildren().add(pane);
 
         fyldPaaFlaskeButton.setOnAction(event -> fyldPaaFlaske());
 
+        aftapningListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                visAftapningInfo(newValue);
+            }
+        });
     }
 
     public void updateAftapningerListView(List<Aftapning> aftapningList) {
         aftapningListView.getItems().setAll(aftapningList);
+    }
+    private void visAftapningInfo(Aftapning aftapning){
+        for (Destillat destillat : aftapning.getDestillat()) {
+            aftapningInfoBox.getChildren().clear();
+        aftapningInfoBox.getChildren().addAll(
+                new Label("Alkoholprocent: " + destillat.getAlkoholProcent()),
+                new Label("Fra fad: " + aftapning.getFad().getFadNavn())
+        );
+        }
     }
 
     private void fyldPaaFlaske() {

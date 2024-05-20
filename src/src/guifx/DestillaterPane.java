@@ -4,6 +4,7 @@ import application.controller.Controller;
 import application.model.Destillat;
 import application.model.Destillering;
 import application.model.Fad;
+import application.model.Mængde;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
@@ -22,6 +23,7 @@ public class DestillaterPane extends VBox {
     private ListView<Destillering> destilleringListView;
     private TextField mængdeTextField;
     private Label ledigPladsLabel;
+    private Label tilgængeligeLitereLabel;
     private ListView<Destillat> valgteDestillatListView;
     private AftapningPane aftapningPane;
     private List<Destillat> destillater;
@@ -79,6 +81,9 @@ public class DestillaterPane extends VBox {
         ledigPladsLabel = new Label();
         pane.add(ledigPladsLabel, 1, 3);
 
+        tilgængeligeLitereLabel = new Label();
+        pane.add(tilgængeligeLitereLabel,0,4);
+
         Label destillaterFyldtPåFadLabel = new Label("Destillater der er fyldes på fad vises ovenfor");
         pane.add(destillaterFyldtPåFadLabel, 1, 5);
 
@@ -93,6 +98,12 @@ public class DestillaterPane extends VBox {
         fadListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 updateLedigPladsLabel(newValue);
+            }
+        });
+
+        destillatListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                updateTilgængeligeLitereDestillatLabel(newValue);
             }
         });
 
@@ -115,6 +126,9 @@ public class DestillaterPane extends VBox {
     private void updateLedigPladsLabel(Fad selectedFad) {
         ledigPladsLabel.setText("Ledig plads på fad: " + selectedFad.getLedigPlads() + " liter");
     }
+    private void updateTilgængeligeLitereDestillatLabel(Destillat destillat){
+        tilgængeligeLitereLabel.setText("Tilgængelige litere fra destillat: " + destillat.getMængde().opdaterMængde2());
+    }
 
     private void tilfoejTilFad() {
         List<Destillat> selectedDestillater = destillatListView.getSelectionModel().getSelectedItems();
@@ -123,6 +137,21 @@ public class DestillaterPane extends VBox {
         if (!selectedDestillater.isEmpty() && selectedFad != null) {
             try {
                 int mængde = Integer.parseInt(mængdeTextField.getText());
+
+                for (Destillat destillat : selectedDestillater) {
+                    if (mængde > destillat.getMængde().getMængdePåDestillat()) {
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setHeaderText("MANGEL PÅ PLADS!");
+                        alert.setContentText("Destillatet du har valgt rummer ikke så mange liter!");
+                        alert.showAndWait();
+                        return;
+                    }
+                    else {
+                        destillat.getMængde().opdaterMængde(mængde);
+                        updateTilgængeligeLitereDestillatLabel(destillat);
+                        destillat.getMængde().resetMængdeBrugt();
+                    }
+                }
 
                 if (mængde <= selectedFad.getLedigPlads()) {
                     selectedFad.fyldPåFad(mængde);
@@ -135,7 +164,8 @@ public class DestillaterPane extends VBox {
 
                     mængdeTextField.clear();
 
-                } else {
+                }
+                else {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setHeaderText("MANGEL PÅ PLADS!");
                     alert.setContentText("Du har indtastet et antal liter der overskrider den ledige plads på fadet!");
