@@ -14,7 +14,6 @@ import storage.Storage;
 
 import java.time.LocalDate;
 import java.time.Period;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,6 +28,7 @@ public class AftapningPane extends VBox {
     private Label antalFlasker;
     private AftapningPane aftapningPane;
     private VBox aftapningInfoBox;
+    private VBox produktInfoBox;
 
     public AftapningPane() {
         GridPane pane = new GridPane();
@@ -49,12 +49,12 @@ public class AftapningPane extends VBox {
         pane.add(aftapningListView, 0, 0, 2, 1);
 
         Label alleAftapningerLabel = new Label("Alle aftapninger kan ses herunder:");
-        pane.add(alleAftapningerLabel,0,6);
+        pane.add(alleAftapningerLabel, 0, 6);
 
         ikkeKlarAftapningListView = new ListView<>();
         ikkeKlarAftapningListView.getItems().setAll(Storage.getAftapninger());
-        ikkeKlarAftapningListView.setPrefSize(300,100);
-        pane.add(ikkeKlarAftapningListView,0,7,2,1);
+        ikkeKlarAftapningListView.setPrefSize(300, 100);
+        pane.add(ikkeKlarAftapningListView, 0, 7, 2, 1);
         ikkeKlarAftapningListView.setMouseTransparent(true);
         ikkeKlarAftapningListView.setFocusTraversable(false);
 
@@ -78,7 +78,12 @@ public class AftapningPane extends VBox {
         pane.add(literAftap, 1, 2);
 
         aftapningInfoBox = new VBox();
-        pane.add(aftapningInfoBox,0,5);
+        pane.add(aftapningInfoBox, 0, 5);
+
+        produktInfoBox = new VBox();
+        ScrollPane produktScrollPane = new ScrollPane(produktInfoBox);
+        produktScrollPane.setFitToWidth(true);
+        pane.add(produktScrollPane, 3, 2, 2, 1);
 
         getChildren().add(pane);
 
@@ -89,15 +94,45 @@ public class AftapningPane extends VBox {
                 visAftapningInfo(newValue);
             }
         });
+
+        flaskeListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                visProduktInfo(newValue);
+            }
+        });
+    }
+
+    private void visProduktInfo(Produkt produkt) {
+        produktInfoBox.getChildren().clear();
+
+        Aftapning aftapning = produkt.getAftapning();
+        produktInfoBox.getChildren().add(new Label("Information omkring produktet:"));
+        produktInfoBox.getChildren().add(new Label("Dato fyldt på fad: " + aftapning.getStartDato()));
+        produktInfoBox.getChildren().add(new Label("Har lagret på fad: " + aftapning.getFad().getFadNavn() + "\n"));
+        produktInfoBox.getChildren().add(new Label());
+        produktInfoBox.getChildren().add(new Label("Destillater:"));
+
+        int count = 1;
+        for (Destillat destillat : aftapning.getDestillat()) {
+            produktInfoBox.getChildren().add(new Label("Destillat " + count));
+            produktInfoBox.getChildren().add(new Label("  - Alkoholprocent: " + destillat.getAlkoholProcent()));
+            produktInfoBox.getChildren().add(new Label("  - Mængde: " + destillat.getMængde() + "L"));
+            //produktInfoBox.getChildren().add(new Label("  - Fra destilleringen: " + destillat.getDestillering().getKornsort()));
+            produktInfoBox.getChildren().add(new Label());
+            count++;
+        }
+
     }
 
     public void updateAftapningerListView(List<Aftapning> aftapningList) {
         aftapningListView.getItems().setAll(aftapningList);
     }
-    public void updateIkkeKlarAftapningerListView(List<Aftapning> aftapningList){
+
+    public void updateIkkeKlarAftapningerListView(List<Aftapning> aftapningList) {
         ikkeKlarAftapningListView.getItems().setAll(aftapningList);
     }
-    private void visAftapningInfo(Aftapning aftapning){
+
+    private void visAftapningInfo(Aftapning aftapning) {
         for (Destillat destillat : aftapning.getDestillat()) {
             aftapningInfoBox.getChildren().clear();
             aftapningInfoBox.getChildren().addAll(
@@ -115,8 +150,8 @@ public class AftapningPane extends VBox {
                 Aftapning test = aftapningListView.getSelectionModel().getSelectedItem();
 
                 antalLiterIAlt += Integer.parseInt(fortyndingTF.getText());
-                double beregnTest = Controller.testBeregn(test,Integer.parseInt(literAftap.getText()), Integer.parseInt(fortyndingTF.getText()));
-                Produkt produkt = Controller.createProdukt(test, beregnTest,antalLiterIAlt);
+                double beregnTest = Controller.testBeregn(test, Integer.parseInt(literAftap.getText()), Integer.parseInt(fortyndingTF.getText()));
+                Produkt produkt = Controller.createProdukt(test, beregnTest, antalLiterIAlt);
 
                 popUpFlaske().showAndWait();
                 flaskeListView.getItems().add(produkt);
