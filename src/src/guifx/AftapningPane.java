@@ -21,6 +21,7 @@ import java.util.stream.Collectors;
 public class AftapningPane extends VBox {
     private ListView<Aftapning> aftapningListView;
     private ListView<Produkt> flaskeListView;
+    private ListView<Aftapning> ikkeKlarAftapningListView;
     private TextField fortyndingTF;
     private TextField literAftap;
     private Label testLbl;
@@ -28,7 +29,6 @@ public class AftapningPane extends VBox {
     private Label antalFlasker;
     private AftapningPane aftapningPane;
     private VBox aftapningInfoBox;
-    private ListView<Aftapning> aftapningLV;
 
     public AftapningPane() {
         GridPane pane = new GridPane();
@@ -48,6 +48,15 @@ public class AftapningPane extends VBox {
         aftapningListView.setPrefSize(300, 100);
         pane.add(aftapningListView, 0, 0, 2, 1);
 
+        Label alleAftapningerLabel = new Label("Alle aftapninger kan ses herunder:");
+        pane.add(alleAftapningerLabel,0,6);
+
+        ikkeKlarAftapningListView = new ListView<>();
+        ikkeKlarAftapningListView.getItems().setAll(Storage.getAftapninger());
+        ikkeKlarAftapningListView.setPrefSize(300,100);
+        pane.add(ikkeKlarAftapningListView,0,7,2,1);
+        ikkeKlarAftapningListView.setMouseTransparent(true);
+        ikkeKlarAftapningListView.setFocusTraversable(false);
 
         fortyndingTF = new TextField();
         fortyndingTF.setPromptText("Indtast fortynding i L");
@@ -58,7 +67,6 @@ public class AftapningPane extends VBox {
 
         Button seFortyndingHis = new Button("Historik");
         pane.add(seFortyndingHis, 0, 4);
-
 
         flaskeListView = new ListView<>();
         flaskeListView.getItems().setAll(Storage.getFlasker());
@@ -86,13 +94,16 @@ public class AftapningPane extends VBox {
     public void updateAftapningerListView(List<Aftapning> aftapningList) {
         aftapningListView.getItems().setAll(aftapningList);
     }
+    public void updateIkkeKlarAftapningerListView(List<Aftapning> aftapningList){
+        ikkeKlarAftapningListView.getItems().setAll(aftapningList);
+    }
     private void visAftapningInfo(Aftapning aftapning){
         for (Destillat destillat : aftapning.getDestillat()) {
             aftapningInfoBox.getChildren().clear();
-        aftapningInfoBox.getChildren().addAll(
-                new Label("Alkoholprocent: " + destillat.getAlkoholProcent()),
-                new Label("Fra fad: " + aftapning.getFad().getFadNavn())
-        );
+            aftapningInfoBox.getChildren().addAll(
+                    new Label("Alkoholprocent: " + destillat.getAlkoholProcent()),
+                    new Label("Fra fad: " + aftapning.getFad().getFadNavn())
+            );
         }
     }
 
