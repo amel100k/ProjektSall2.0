@@ -28,6 +28,7 @@ public class AftapningPane extends VBox {
     private Label antalFlasker;
     private AftapningPane aftapningPane;
     private VBox aftapningInfoBox;
+    private ListView<Aftapning> aftapningLV;
 
     public AftapningPane() {
         GridPane pane = new GridPane();

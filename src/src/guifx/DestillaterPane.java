@@ -1,10 +1,7 @@
 package guifx;
 
 import application.controller.Controller;
-import application.model.Destillat;
-import application.model.Destillering;
-import application.model.Fad;
-import application.model.Mængde;
+import application.model.*;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
@@ -13,8 +10,10 @@ import javafx.scene.layout.VBox;
 import storage.Storage;
 
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class DestillaterPane extends VBox {
 
@@ -194,7 +193,15 @@ public class DestillaterPane extends VBox {
             mængde = 0;
             valgteDestillatListView.getItems().clear();
             updateLedigPladsLabel(selectedFad);
-            aftapningPane.updateAftapningerListView(Storage.getAftapninger());
+            List<Aftapning> aftapninger = Storage.getAftapninger();
+            LocalDate threeYearsAgo = LocalDate.now().minusYears(3);
+
+            List<Aftapning> filteredAftapninger = aftapninger.stream()
+                    .filter(a -> Period.between(a.getStartDato(), LocalDate.now()).getYears() >= 3)
+                    .collect(Collectors.toList());
+
+            aftapningPane.updateAftapningerListView(filteredAftapninger);
+
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setHeaderText("FEJL!");
