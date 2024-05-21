@@ -26,8 +26,10 @@ public class LagerPane extends VBox {
     private TextField adresse;
     private TextField maxAntalFad;
     private ListView<Aftapning> aftapningListView;
+    private FadePane fadePane;
 
     public LagerPane() {
+        this.fadePane = fadePane;
         GridPane pane = new GridPane();
         pane.setPadding(new Insets(10));
         pane.setHgap(10);
@@ -123,7 +125,8 @@ public class LagerPane extends VBox {
     private void gemButtonAction() {
         String adresse1 = adresse.getText();
         int maxAntalFadValue = Integer.parseInt(maxAntalFad.getText());
-
         lagerListView.getItems().add(Controller.createLager(adresse1, maxAntalFadValue));
+        fadePane.updateLagerComboBox();
+        
     }
 }

@@ -87,6 +87,7 @@ public class FadePane extends VBox {
         pane.add(lagerComboBox,1,6);
         lagerComboBox.getItems().setAll(Storage.getLagere());
 
+
         Button gemButton = new Button("Gem");
         gemButton.setOnAction(event -> gemButtonAction());
         Button annullerButton = new Button("Annuller");
@@ -135,6 +136,10 @@ public class FadePane extends VBox {
 
         tt.play();
         ft.play();
+    }
+
+    public void updateLagerComboBox() {
+        lagerComboBox.getItems().setAll(Storage.getLagere());
     }
 
     private void annullerButtonAction() {
