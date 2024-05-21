@@ -42,7 +42,7 @@ public class Gui extends Application {
         fadeTab.setContent(fadePane);
         tabPane.getTabs().add(fadeTab);
 
-        DestillaterPane destillaterPaneTest = new DestillaterPane(aftapningPane);
+        DestillaterPane destillaterPaneTest = new DestillaterPane(aftapningPane,flytWhiskyPane);
         Tab destillaterTab = new Tab();
         destillaterTab.setText("Destillater oversigt");
         destillaterTab.setContent(destillaterPaneTest);
