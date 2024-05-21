@@ -33,9 +33,8 @@ public class Aftapning {
         liter -= antalLiter;
     }
 
-    public boolean erTreAarSidenStartDato() {
-        Period period = Period.between(startDato, LocalDate.now());
-        return period.getYears() >= 3;
+    public LocalDate getStartDato() {
+        return startDato;
     }
 
     public ArrayList<Destillat> getDestillat() {
@@ -48,6 +47,10 @@ public class Aftapning {
 
     public int getLiter() {
         return liter;
+    }
+
+    public Fad getFad() {
+        return fad;
     }
 
     @Override
