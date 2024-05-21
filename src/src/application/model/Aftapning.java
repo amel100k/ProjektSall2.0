@@ -32,7 +32,6 @@ public class Aftapning {
         liter -= antalLiter;
     }
 
-
     public ArrayList<Destillat> getDestillat() {
         return destillat;
     }

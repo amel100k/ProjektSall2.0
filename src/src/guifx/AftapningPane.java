@@ -12,8 +12,11 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import storage.Storage;
 
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class AftapningPane extends VBox {
     private ListView<Aftapning> aftapningListView;
@@ -33,7 +36,14 @@ public class AftapningPane extends VBox {
         pane.setVgap(5);
 
         aftapningListView = new ListView<>();
-        aftapningListView.getItems().setAll(Storage.getAftapninger());
+        List<Aftapning> aftapninger = Storage.getAftapninger();
+        LocalDate threeYearsAgo = LocalDate.now().minusYears(3);
+
+        List<Aftapning> filteredAftapninger = aftapninger.stream()
+                .filter(a -> Period.between(a.getStartDato(), LocalDate.now()).getYears() >= 3)
+                .collect(Collectors.toList());
+
+        aftapningListView.getItems().setAll(filteredAftapninger);
         aftapningListView.setPrefSize(300, 100);
         pane.add(aftapningListView, 0, 0, 2, 1);
 
@@ -98,7 +108,13 @@ public class AftapningPane extends VBox {
 
                 popUpFlaske().showAndWait();
                 flaskeListView.getItems().add(produkt);
-                updateAftapningLV(Storage.getAftapninger());
+                List<Aftapning> aftapninger = Storage.getAftapninger();
+                LocalDate threeYearsAgo = LocalDate.now().minusYears(3);
+
+                List<Aftapning> filteredAftapninger = aftapninger.stream()
+                        .filter(a -> Period.between(a.getStartDato(), LocalDate.now()).getYears() >= 3)
+                        .collect(Collectors.toList());
+                updateAftapningLV(filteredAftapninger);
 
             } catch (NumberFormatException e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
