@@ -1,7 +1,5 @@
 package application.model;
 
-import java.util.ArrayList;
-
 public class Destillat {
     private double alkoholProcent;
     private Mængde mængde;
@@ -22,6 +20,6 @@ public class Destillat {
     @Override
     public String toString() {
         return "Alkoholprocent: " + alkoholProcent +
-                ", Liter: " + mængde.getMængde() + "L";
+                ", Liter: " + mængde.getMængdePåDestillat() + "L";
     }
 }

@@ -33,8 +33,9 @@ public class Aftapning {
         liter -= antalLiter;
     }
 
-    public LocalDate getStartDato() {
-        return startDato;
+    public boolean erTreAarSidenStartDato() {
+        Period period = Period.between(startDato, LocalDate.now());
+        return period.getYears() >= 3;
     }
 
     public ArrayList<Destillat> getDestillat() {
@@ -53,9 +54,13 @@ public class Aftapning {
         return fad;
     }
 
+    public LocalDate getStartDato() {
+        return startDato;
+    }
+
     @Override
     public String toString() {
-        return  "Fad: " + fad.getFadNavn() +
-                " Liter aftap: " + liter;
+        return  "Aftap fra fad: " + fad.getFadNavn() + ", " +
+                "Antal liter klar til aftapning: " + liter;
     }
 }

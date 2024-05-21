@@ -33,7 +33,7 @@ public class Gui extends Application{
         tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
         AftapningPane aftapningPane = new AftapningPane();
         LagerPane lagerPane = new LagerPane();
-        FlytWhiskyPane flytWhiskyPane = new FlytWhiskyPane();
+        FlytWhiskyPane flytWhiskyPane = new FlytWhiskyPane(aftapningPane);
 
         Tab fadeTab = new Tab();
         fadeTab.setText("Registrer fad");
