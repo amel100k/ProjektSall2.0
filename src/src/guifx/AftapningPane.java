@@ -108,7 +108,13 @@ public class AftapningPane extends VBox {
 
                 popUpFlaske().showAndWait();
                 flaskeListView.getItems().add(produkt);
-                updateAftapningLV(Storage.getAftapninger());
+                List<Aftapning> aftapninger = Storage.getAftapninger();
+                LocalDate threeYearsAgo = LocalDate.now().minusYears(3);
+
+                List<Aftapning> filteredAftapninger = aftapninger.stream()
+                        .filter(a -> Period.between(a.getStartDato(), LocalDate.now()).getYears() >= 3)
+                        .collect(Collectors.toList());
+                updateAftapningLV(filteredAftapninger);
 
             } catch (NumberFormatException e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
