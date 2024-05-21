@@ -1,5 +1,7 @@
 package application.model;
 
+import java.util.ArrayList;
+
 public class Fad {
     private String fadHistore;
     private String tidligereBrug;
@@ -10,6 +12,7 @@ public class Fad {
     private int mængdePåFad;
     private Produkt produkt;
     private Lager lager;
+    private ArrayList<Aftapning> aftapning = new ArrayList<>();
 
     public Fad(String fadHistore, String tidligereBrug, int placering, String koebssted, String fadNavn, int fadKapacitet, Lager lager) {
         this.fadHistore = fadHistore;
@@ -24,6 +27,10 @@ public class Fad {
 
     public String getFadHistore() {
         return fadHistore;
+    }
+
+    public ArrayList<Aftapning> getAftapning() {
+        return aftapning;
     }
 
     public String getTidligereBrug() {

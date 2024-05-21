@@ -12,8 +12,12 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import storage.Storage;
 
+import java.time.LocalDate;
+import java.time.Period;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class LagerPane extends VBox {
     private Lager lager;
@@ -46,7 +50,14 @@ public class LagerPane extends VBox {
 
 
         aftapningListView = new ListView<>();
-        aftapningListView.getItems().setAll(Storage.getAftapninger());
+        List<Aftapning> aftapninger = Storage.getAftapninger();
+        LocalDate threeYearsAgo = LocalDate.now().minusYears(3);
+
+        List<Aftapning> filteredAftapninger = aftapninger.stream()
+                .filter(a -> Period.between(a.getStartDato(), LocalDate.now()).getYears() >= 3)
+                .collect(Collectors.toList());
+
+        aftapningListView.getItems().setAll(filteredAftapninger);
         aftapningListView.setPrefSize(250, 100);
         pane.add(aftapningListView, 17, 5, 1, 1);
 
@@ -92,7 +103,8 @@ public class LagerPane extends VBox {
         this.getChildren().add(pane);
 
     }
-    public void updateFadListView(List<Fad> fadList){
+
+    public void updateFadListView(List<Fad> fadList) {
         fadListView.getItems().setAll(fadList);
     }
 
@@ -102,18 +114,16 @@ public class LagerPane extends VBox {
         alert.setHeaderText(null);
         alert.setContentText("Er du sikker på, at du vil annullere og starte forfra?");
         Optional<ButtonType> result = alert.showAndWait();
-        if (result.isPresent() && result.get() == ButtonType.OK){
+        if (result.isPresent() && result.get() == ButtonType.OK) {
             adresse.clear();
             maxAntalFad.clear();
         }
     }
 
-    private void gemButtonAction(){
+    private void gemButtonAction() {
         String adresse1 = adresse.getText();
-          int maxAntalFadValue = Integer.parseInt(maxAntalFad.getText());
+        int maxAntalFadValue = Integer.parseInt(maxAntalFad.getText());
 
-          lagerListView.getItems().add(Controller.createLager(adresse1, maxAntalFadValue));
+        lagerListView.getItems().add(Controller.createLager(adresse1, maxAntalFadValue));
     }
-
-
 }
