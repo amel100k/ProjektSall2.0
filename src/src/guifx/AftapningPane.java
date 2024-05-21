@@ -55,6 +55,8 @@ public class AftapningPane extends VBox {
         ikkeKlarAftapningListView.getItems().setAll(Storage.getAftapninger());
         ikkeKlarAftapningListView.setPrefSize(300,100);
         pane.add(ikkeKlarAftapningListView,0,7,2,1);
+        ikkeKlarAftapningListView.setMouseTransparent(true);
+        ikkeKlarAftapningListView.setFocusTraversable(false);
 
         fortyndingTF = new TextField();
         fortyndingTF.setPromptText("Indtast fortynding i L");
