@@ -2,7 +2,6 @@ package guifx;
 
 import application.controller.Controller;
 import application.model.Aftapning;
-import application.model.Destillering;
 import application.model.Fad;
 import application.model.Lager;
 import javafx.geometry.Insets;
@@ -14,13 +13,11 @@ import storage.Storage;
 
 import java.time.LocalDate;
 import java.time.Period;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class LagerPane extends VBox {
-    private Lager lager;
     private ListView<Lager> lagerListView;
     private ListView<Fad> fadListView;
     private TextField adresse;
@@ -28,7 +25,7 @@ public class LagerPane extends VBox {
     private ListView<Aftapning> aftapningListView;
     private FadePane fadePane;
 
-    public LagerPane() {
+    public LagerPane(FadePane fadePane) {
         this.fadePane = fadePane;
         GridPane pane = new GridPane();
         pane.setPadding(new Insets(10));
@@ -45,11 +42,9 @@ public class LagerPane extends VBox {
         Label fadeLabel = new Label("Fade på lageret:");
         pane.add(fadeLabel, 17, 2);
         fadListView = new ListView<>();
-        //fadListView.getItems().setAll(Storage.getLagere().getFirst().getFade());
         fadListView.setPrefSize(250, 100);
         pane.add(fadListView, 17, 3, 1, 1);
         fadListView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-
 
         aftapningListView = new ListView<>();
         List<Aftapning> aftapninger = Storage.getAftapninger();
@@ -64,7 +59,6 @@ public class LagerPane extends VBox {
         pane.add(aftapningListView, 17, 5, 1, 1);
 
         lagerListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            //Lager selectedLager = lagerListView.getSelectionModel().getSelectedItem();
             if (newValue != null) {
                 fadListView.getItems().setAll(newValue.getFade());
             }
@@ -103,7 +97,6 @@ public class LagerPane extends VBox {
         pane.add(textBox, 1, 1);
 
         this.getChildren().add(pane);
-
     }
 
     public void updateFadListView(List<Fad> fadList) {
@@ -125,8 +118,8 @@ public class LagerPane extends VBox {
     private void gemButtonAction() {
         String adresse1 = adresse.getText();
         int maxAntalFadValue = Integer.parseInt(maxAntalFad.getText());
-        lagerListView.getItems().add(Controller.createLager(adresse1, maxAntalFadValue));
+        Lager lager = Controller.createLager(adresse1, maxAntalFadValue);
+        lagerListView.getItems().add(lager);
         fadePane.updateLagerComboBox();
-        
     }
 }

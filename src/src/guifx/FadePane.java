@@ -1,4 +1,5 @@
 package guifx;
+
 import application.controller.Controller;
 import application.model.Fad;
 import application.model.Lager;
@@ -15,7 +16,6 @@ import storage.Storage;
 import java.util.Optional;
 
 public class FadePane extends VBox {
-    private Fad fad;
     private TextField fadHistorie;
     private TextField tidligereBruger;
     private TextField placering;
@@ -27,9 +27,7 @@ public class FadePane extends VBox {
     private ComboBox<Lager> lagerComboBox = new ComboBox<>();
     private LagerPane lagerPane;
 
-
-    public FadePane(LagerPane lagerPane) {
-        this.lagerPane = lagerPane;
+    public FadePane() {
         GridPane pane = new GridPane();
         pane.setPadding(new Insets(10));
         pane.setHgap(10);
@@ -37,8 +35,8 @@ public class FadePane extends VBox {
 
         fadListView = new ListView<>();
         fadListView.getItems().setAll(Storage.getFade());
-        fadListView.setPrefSize(200,150);
-        pane.add(fadListView,0,8,2,1);
+        fadListView.setPrefSize(200, 150);
+        pane.add(fadListView, 0, 8, 2, 1);
 
         fadeInfoBox = new VBox(5);
         fadeInfoBox.setPadding(new Insets(10));
@@ -77,16 +75,15 @@ public class FadePane extends VBox {
 
         Label fadKapacitetLabel = new Label("Kapacitet i liter:");
         fadKapacitet = new TextField();
-        pane.add(fadKapacitetLabel,0,5);
-        pane.add(fadKapacitet,1,5);
+        pane.add(fadKapacitetLabel, 0, 5);
+        pane.add(fadKapacitet, 1, 5);
 
         Label fadLagerLabel = new Label("Fadets lager:");
-        pane.add(fadLagerLabel,0,6);
+        pane.add(fadLagerLabel, 0, 6);
 
         lagerComboBox = new ComboBox<>();
-        pane.add(lagerComboBox,1,6);
+        pane.add(lagerComboBox, 1, 6);
         lagerComboBox.getItems().setAll(Storage.getLagere());
-
 
         Button gemButton = new Button("Gem");
         gemButton.setOnAction(event -> gemButtonAction());
@@ -101,7 +98,11 @@ public class FadePane extends VBox {
         getChildren().add(pane);
     }
 
-    private void gemButtonAction(){
+    public void setLagerPane(LagerPane lagerPane) {
+        this.lagerPane = lagerPane;
+    }
+
+    private void gemButtonAction() {
         String fadHistorieValue = fadHistorie.getText();
         String tidligereBrugValue = tidligereBruger.getText();
         int placeringValue = Integer.parseInt(placering.getText());
@@ -110,10 +111,15 @@ public class FadePane extends VBox {
         int fadKapacitetValue = Integer.parseInt(fadKapacitet.getText());
         Lager lager = lagerComboBox.getSelectionModel().getSelectedItem();
 
-        fadListView.getItems().add(Controller.createFad(fadHistorieValue,tidligereBrugValue,placeringValue,koebsstedValue,
-                fadNavnValue,fadKapacitetValue,lager));
-        //lagerPane.updateFadListView(Storage.getFade());
+        Fad fad = Controller.createFad(fadHistorieValue, tidligereBrugValue, placeringValue, koebsstedValue,
+                fadNavnValue, fadKapacitetValue, lager);
+        fadListView.getItems().add(fad);
+
+        if (lagerPane != null) {
+            lagerPane.updateFadListView(lager.getFade());
+        }
     }
+
     private void visFadInfo(Fad fad) {
         fadeInfoBox.getChildren().clear();
         fadeInfoBox.getChildren().addAll(
@@ -121,14 +127,13 @@ public class FadePane extends VBox {
                 new Label("Tidligere brug: " + fad.getTidligereBrug()),
                 new Label("Fadets lagerplacering: " + fad.getPlacering()),
                 new Label("Købssted: " + fad.getKoebssted()),
-                new Label("Fadets navn: " + fad.getFadNavn()),
-                new Label("Fadets kapacitet i liter: " + fad.getFadKapacitet()),
-                new Label("Fadets lager: " + fad.getLager())
-                );
+                new Label("Fadnavn: " + fad.getFadNavn()),
+                new Label("Kapacitet i liter: " + fad.getFadKapacitet())
+        );
 
         TranslateTransition tt = new TranslateTransition(Duration.millis(500), fadeInfoBox);
-        tt.setFromY(200);
-        tt.setToY(0);
+        tt.setFromX(-20);
+        tt.setToX(0);
 
         FadeTransition ft = new FadeTransition(Duration.millis(500), fadeInfoBox);
         ft.setFromValue(0.0);
@@ -148,7 +153,7 @@ public class FadePane extends VBox {
         alert.setHeaderText(null);
         alert.setContentText("Er du sikker på, at du vil annullere og starte forfra?");
         Optional<ButtonType> result = alert.showAndWait();
-        if (result.isPresent() && result.get() == ButtonType.OK){
+        if (result.isPresent() && result.get() == ButtonType.OK) {
             fadHistorie.clear();
             fadNavn.clear();
             tidligereBruger.clear();
