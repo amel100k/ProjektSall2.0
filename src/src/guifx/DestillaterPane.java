@@ -201,6 +201,7 @@ public class DestillaterPane extends VBox {
                     .collect(Collectors.toList());
 
             aftapningPane.updateAftapningerListView(filteredAftapninger);
+            aftapningPane.updateIkkeKlarAftapningerListView(Storage.getAftapninger());
 
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
