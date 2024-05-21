@@ -3,7 +3,6 @@ package guifx;
 import application.controller.Controller;
 import application.model.Aftapning;
 import application.model.Fad;
-import application.model.Mængde;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
@@ -78,7 +77,7 @@ public class FlytWhiskyPane extends VBox {
             try {
                 antalLiter = Integer.parseInt(literTextField.getText());
             if (antalLiter <= selectedFad.getLedigPlads() && antalLiter <= selectedAftapning.getLiter()) {
-                selectedAftapning.flytTilFad(antalLiter);
+                selectedAftapning.flytTilNytFad(antalLiter);
                 selectedFad.fyldPåFad(antalLiter);
                 updateLedigPladsLabel(selectedFad);
                 Controller.createAftapning(selectedFad,selectedAftapning.getDestillat(),antalLiter, LocalDate.now());

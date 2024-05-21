@@ -39,7 +39,7 @@ public class Controller {
 
     public static double testBeregn(Aftapning aftapning, int literAlkohol, int literVand){
         double mængdeAlkohol = 0;
-        aftapning.fyldPaaFlaske(aftapning.getLiter(),literAlkohol, aftapning);
+        aftapning.skabProdukt(aftapning.getLiter(),literAlkohol, aftapning);
 
         int antalLiterVæske = literAlkohol + literVand;
         if(literVand == 0){
