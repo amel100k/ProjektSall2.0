@@ -2,7 +2,6 @@ package application.model;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.time.Period;
 
 public class Aftapning {
     private Fad fad;
@@ -16,7 +15,7 @@ public class Aftapning {
         this.liter = literDerFyldesPåFad;
         this.startDato = startDato;
     }
-    public void fyldPaaFlaske(int literVand, int literAftap, Aftapning aftapning){
+    public void skabProdukt(int literVand, int literAftap, Aftapning aftapning){
        int literVæskeIAlt = 0;
         literVæskeIAlt = aftapning.getLiter();
         if(literVæskeIAlt < literAftap){
@@ -26,7 +25,7 @@ public class Aftapning {
         antalLiterIAlt = literVand;
         setLiter(literVand - literAftap);
     }
-    public void flytTilFad(int antalLiter){
+    public void flytTilNytFad(int antalLiter){
         if (antalLiter > liter){
             throw new IllegalArgumentException("Mængde overskrider tilgængelig plads i fad");
         }
