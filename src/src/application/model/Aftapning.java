@@ -55,7 +55,7 @@ public class Aftapning {
 
     @Override
     public String toString() {
-        return  "fad: " + fad.getFadNavn() +
-                " liter aftap: " + liter;
+        return  "Fad: " + fad.getFadNavn() +
+                " Liter aftap: " + liter;
     }
 }
