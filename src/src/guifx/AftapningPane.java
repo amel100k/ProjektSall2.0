@@ -107,13 +107,12 @@ public class AftapningPane extends VBox {
         produktInfoBox.getChildren().add(new Label("Dato fyldt på fad: " + aftapning.getStartDato()));
         produktInfoBox.getChildren().add(new Label("Har lagret på fad: " + aftapning.getFad().getFadNavn() + "\n"));
         produktInfoBox.getChildren().add(new Label());
-        produktInfoBox.getChildren().add(new Label("Destillater:"));
+        produktInfoBox.getChildren().add(new Label("Destillater der er anvendt:"));
 
         int count = 1;
         for (Destillat destillat : aftapning.getDestillat()) {
             produktInfoBox.getChildren().add(new Label("Destillat " + count));
             produktInfoBox.getChildren().add(new Label("  - Alkoholprocent: " + destillat.getAlkoholProcent()));
-            produktInfoBox.getChildren().add(new Label("  - Mængde: " + destillat.getMængde() + "L"));
             produktInfoBox.getChildren().add(new Label());
             count++;
         }
