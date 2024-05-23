@@ -25,11 +25,13 @@ public class DestillaterPane extends VBox {
     private Label tilgængeligeLitereLabel;
     private ListView<Destillat> valgteDestillatListView;
     private AftapningPane aftapningPane;
+    private FlytWhiskyPane flytWhiskyPane;
     private List<Destillat> destillater;
     private int mængde;
 
-    public DestillaterPane(AftapningPane aftapningPane) {
+    public DestillaterPane(AftapningPane aftapningPane, FlytWhiskyPane flytWhiskyPane) {
         this.aftapningPane = aftapningPane;
+        this.flytWhiskyPane = flytWhiskyPane;
         destillater = new ArrayList<>();
         mængde = 0;
 
@@ -202,6 +204,7 @@ public class DestillaterPane extends VBox {
 
             aftapningPane.updateAftapningerListView(filteredAftapninger);
             aftapningPane.updateIkkeKlarAftapningerListView(Storage.getAftapninger());
+            flytWhiskyPane.updateAftapningerListView(Storage.getAftapninger());
 
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);

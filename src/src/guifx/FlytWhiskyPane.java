@@ -10,6 +10,9 @@ import javafx.scene.layout.VBox;
 import storage.Storage;
 
 import java.time.LocalDate;
+import java.time.Period;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class FlytWhiskyPane extends VBox {
     private ListView<Aftapning> aftapningListView;
@@ -67,6 +70,9 @@ public class FlytWhiskyPane extends VBox {
         private void updateLedigPladsLabel(Fad selectedFad) {
             ledigPladsLabel.setText("Ledig plads på fad: " + selectedFad.getLedigPlads() + " liter");
         }
+        public void updateAftapningerListView(List<Aftapning> aftapningList) {
+        aftapningListView.getItems().setAll(aftapningList);
+        }
 
     private void flytWhisky() {
         Aftapning selectedAftapning = aftapningListView.getSelectionModel().getSelectedItem();
@@ -81,7 +87,13 @@ public class FlytWhiskyPane extends VBox {
                 selectedFad.fyldPåFad(antalLiter);
                 updateLedigPladsLabel(selectedFad);
                 Controller.createAftapning(selectedFad,selectedAftapning.getDestillat(),antalLiter, LocalDate.now());
-                aftapningPane.updateAftapningerListView(Storage.getAftapninger());
+                List<Aftapning> aftapninger = Storage.getAftapninger();
+                LocalDate threeYearsAgo = LocalDate.now().minusYears(3);
+                List<Aftapning> filteredAftapninger = aftapninger.stream()
+                        .filter(a -> Period.between(a.getStartDato(), LocalDate.now()).getYears() >= 3)
+                        .collect(Collectors.toList());
+                aftapningPane.updateAftapningerListView(filteredAftapninger);
+                aftapningPane.updateIkkeKlarAftapningerListView(Storage.getAftapninger());
             }
             else {
                 Alert alert = new Alert(Alert.AlertType.ERROR);

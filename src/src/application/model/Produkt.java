@@ -3,23 +3,22 @@ package application.model;
 import java.util.ArrayList;
 
 public class Produkt {
-    private ArrayList<Aftapning> aftapninger;
+    private Aftapning aftapning;
     private int kapacitetILiter;
     private double alkoholprocent;
     public Produkt(Aftapning aftapning, double alkoholprocent, int kapacitetILiter) {
-        this.aftapninger = aftapninger;
+        this.aftapning = aftapning;
         this.kapacitetILiter = kapacitetILiter;
         this.alkoholprocent = alkoholprocent;
     }
 
-    public ArrayList<Aftapning> getAftapninger() {
-        return aftapninger;
+    public Aftapning getAftapning() {
+        return aftapning;
     }
 
     public int getKapacitetILiter() {
         return kapacitetILiter;
     }
-
 
 
     public double getAlkoholprocent() {

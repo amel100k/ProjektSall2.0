@@ -20,4 +20,9 @@ public class Mængde {
     public int getMængdePåDestillat() {
         return mængdePåDestillat;
     }
+
+    @Override
+    public String toString() {
+        return "" + mængdePåDestillat;
+    }
 }

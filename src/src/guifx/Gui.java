@@ -1,12 +1,14 @@
 package guifx;
+
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
-public class Gui extends Application{
+public class Gui extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         stage.setTitle("Sall Whisky");
@@ -17,33 +19,33 @@ public class Gui extends Application{
         Scene scene = new Scene(pane);
         stage.setScene(scene);
         stage.show();
-
     }
-    // -------------------------------------------------------------------------
 
     private void initContent(GridPane pane) {
         pane.setGridLinesVisible(false);
         pane.setPadding(new Insets(20.0));
         pane.setHgap(20.0);
         pane.setVgap(10.0);
-        //___________________________________________________________________________________________
 
         TabPane tabPane = new TabPane();
-        pane.add(tabPane,0,0);
+        pane.add(tabPane, 0, 0);
         tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
+
         AftapningPane aftapningPane = new AftapningPane();
-        LagerPane lagerPane = new LagerPane();
+        FadePane fadePane = new FadePane();
+        LagerPane lagerPane = new LagerPane(fadePane);
+        fadePane.setLagerPane(lagerPane);
         FlytWhiskyPane flytWhiskyPane = new FlytWhiskyPane(aftapningPane);
 
         Tab fadeTab = new Tab();
         fadeTab.setText("Registrer fad");
-        fadeTab.setContent(new FadePane(lagerPane));
+        fadeTab.setContent(fadePane);
         tabPane.getTabs().add(fadeTab);
 
-        DestillaterPane destillaterPaneTest = new DestillaterPane(aftapningPane);
+        DestillaterPane destillaterPaneTest = new DestillaterPane(aftapningPane,flytWhiskyPane);
         Tab destillaterTab = new Tab();
         destillaterTab.setText("Destillater oversigt");
-        destillaterTab.setContent(new DestillaterPane(aftapningPane));
+        destillaterTab.setContent(destillaterPaneTest);
         tabPane.getTabs().add(destillaterTab);
 
         Tab destilleringerTab = new Tab();

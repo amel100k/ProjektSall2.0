@@ -3,6 +3,7 @@ package application.model;
 public class Destillat {
     private double alkoholProcent;
     private Mængde mængde;
+    private Destillering destillering;
 
     public Destillat(double alkoholProcent, Mængde mængde) {
         this.alkoholProcent = alkoholProcent;
@@ -15,6 +16,10 @@ public class Destillat {
 
     public Mængde getMængde() {
         return mængde;
+    }
+
+    public Destillering getDestillering() {
+        return destillering;
     }
 
     @Override
