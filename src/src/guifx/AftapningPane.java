@@ -65,9 +65,6 @@ public class AftapningPane extends VBox {
         Button fyldPaaFlaskeButton = new Button("Skab produkt");
         pane.add(fyldPaaFlaskeButton, 0, 3);
 
-        Button seFortyndingHis = new Button("Historik");
-        pane.add(seFortyndingHis, 0, 4);
-
         flaskeListView = new ListView<>();
         flaskeListView.getItems().setAll(Storage.getFlasker());
         flaskeListView.setPrefSize(300, 100);
