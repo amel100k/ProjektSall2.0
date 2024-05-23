@@ -37,6 +37,7 @@ public class PopupWindowDestillat {
                 double alkoholprocent = Double.parseDouble(alkoholprocentField.getText());
                 int mængde = Integer.parseInt(mængdeField.getText());
 
+                selectedDestillering.literMængde(mængde);
                 selectedDestillering.createDestillat(alkoholprocent, new Mængde(mængde));
                 destillaterPane.updateDestillaterListView(Storage.getDestillater());
 

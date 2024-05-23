@@ -1,9 +1,7 @@
 package guifx;
 
 import application.controller.Controller;
-import application.model.Destillat;
 import application.model.Destillering;
-import application.model.Mængde;
 import javafx.animation.FadeTransition;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
@@ -13,16 +11,9 @@ import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import storage.Storage;
 import javafx.animation.TranslateTransition;
-import javafx.animation.*;
-import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
+
 import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Optional;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 
 public class DestilleringerPane extends VBox {
     private ListView<Destillering> destilleringListView;
@@ -197,7 +188,7 @@ public class DestilleringerPane extends VBox {
                 new Label("Slutdato: " + destillering.getSlutDato()),
                 new Label("Maltbatch i gram: " + destillering.getMaltbatchIGram()),
                 new Label("Kornsort: " + destillering.getKornsort()),
-                new Label("Væskemængde i ml: " + destillering.getVæskeMængdeIMl()),
+                new Label("Væskemængde i ml: " + destillering.getVæskeMængdeIl()),
                 new Label("Alkoholprocent: " + destillering.getAlkoholprocent()),
                 new Label("Kommentar: " + destillering.getKommentar()),
                 new Label("Rygemateriale: " + destillering.getRygemateriale())

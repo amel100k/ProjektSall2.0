@@ -10,18 +10,18 @@ public class Destillering {
     private LocalDate slutDato;
     private int maltbatchIGram;
     private String kornsort;
-    private int væskeMængdeIMl;
+    private int væskeMængdeIl;
     private double alkoholprocent;
     private String kommentar;
     private String rygemateriale;
     private ArrayList<Destillat> destillater = new ArrayList<>();
 
-    public Destillering(LocalDate startDato, LocalDate slutDato, int maltbatchIGram, String kornsort, int væskeMængdeIMl, double alkoholprocent, String kommentar, String rygemateriale) {
+    public Destillering(LocalDate startDato, LocalDate slutDato, int maltbatchIGram, String kornsort, int væskeMængdeIl, double alkoholprocent, String kommentar, String rygemateriale) {
         this.startDato = startDato;
         this.slutDato = slutDato;
         this.maltbatchIGram = maltbatchIGram;
         this.kornsort = kornsort;
-        this.væskeMængdeIMl = væskeMængdeIMl;
+        this.væskeMængdeIl = væskeMængdeIl;
         this.alkoholprocent = alkoholprocent;
         this.kommentar = kommentar;
         this.rygemateriale = rygemateriale;
@@ -31,7 +31,7 @@ public class Destillering {
     @Override
     public String toString() {
         return kornsort + ", " +
-                væskeMængdeIMl + "L, " +
+                væskeMængdeIl + "L, " +
                   startDato;
     }
 
@@ -51,8 +51,8 @@ public class Destillering {
         return kornsort;
     }
 
-    public int getVæskeMængdeIMl() {
-        return væskeMængdeIMl;
+    public int getVæskeMængdeIl() {
+        return væskeMængdeIl;
     }
 
     public double getAlkoholprocent() {
@@ -74,6 +74,9 @@ public class Destillering {
         if (!destillater.contains(destillat)){
             destillater.add(destillat);
         }
+    }
+    public void literMængde(int mængde){
+        væskeMængdeIl -= mængde;
     }
     public Destillat createDestillat (double alkoholProcent, Mængde mængde){
         Destillat destillat = new Destillat(alkoholProcent, mængde);
