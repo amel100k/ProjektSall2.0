@@ -45,7 +45,6 @@ public class LagerPane extends VBox {
         Label fadeLabel = new Label("Fade på lageret:");
         pane.add(fadeLabel, 17, 2);
         fadListView = new ListView<>();
-        //fadListView.getItems().setAll(Storage.getLagere().getFirst().getFade());
         fadListView.setPrefSize(250, 100);
         pane.add(fadListView, 17, 3, 1, 1);
         fadListView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
@@ -64,7 +63,6 @@ public class LagerPane extends VBox {
         pane.add(aftapningListView, 17, 5, 1, 1);
 
         lagerListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            //Lager selectedLager = lagerListView.getSelectionModel().getSelectedItem();
             if (newValue != null) {
                 fadListView.getItems().setAll(newValue.getFade());
             }
@@ -127,6 +125,6 @@ public class LagerPane extends VBox {
         int maxAntalFadValue = Integer.parseInt(maxAntalFad.getText());
         lagerListView.getItems().add(Controller.createLager(adresse1, maxAntalFadValue));
         fadePane.updateLagerComboBox();
-        
+
     }
 }

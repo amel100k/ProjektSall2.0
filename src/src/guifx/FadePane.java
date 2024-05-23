@@ -112,7 +112,6 @@ public class FadePane extends VBox {
 
         fadListView.getItems().add(Controller.createFad(fadHistorieValue,tidligereBrugValue,placeringValue,koebsstedValue,
                 fadNavnValue,fadKapacitetValue,lager));
-        //lagerPane.updateFadListView(Storage.getFade());
     }
     private void visFadInfo(Fad fad) {
         fadeInfoBox.getChildren().clear();

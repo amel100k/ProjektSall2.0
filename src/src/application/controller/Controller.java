@@ -37,7 +37,7 @@ public class Controller {
         return produkt;
     }
 
-    public static double testBeregn(Aftapning aftapning, int literAlkohol, int literVand){
+    public static double beregnAlkoholProcent(Aftapning aftapning, int literAlkohol, int literVand){
         double mængdeAlkohol = 0;
         aftapning.skabProdukt(aftapning.getLiter(),literAlkohol, aftapning);
 

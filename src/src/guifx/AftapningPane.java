@@ -14,7 +14,6 @@ import storage.Storage;
 
 import java.time.LocalDate;
 import java.time.Period;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -115,7 +114,7 @@ public class AftapningPane extends VBox {
                 Aftapning test = aftapningListView.getSelectionModel().getSelectedItem();
 
                 antalLiterIAlt += Integer.parseInt(fortyndingTF.getText());
-                double beregnTest = Controller.testBeregn(test,Integer.parseInt(literAftap.getText()), Integer.parseInt(fortyndingTF.getText()));
+                double beregnTest = Controller.beregnAlkoholProcent(test,Integer.parseInt(literAftap.getText()), Integer.parseInt(fortyndingTF.getText()));
                 Produkt produkt = Controller.createProdukt(test, beregnTest,antalLiterIAlt);
 
                 popUpFlaske().showAndWait();
