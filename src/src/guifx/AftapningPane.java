@@ -84,7 +84,7 @@ public class AftapningPane extends VBox {
 
         getChildren().add(pane);
 
-        fyldPaaFlaskeButton.setOnAction(event -> fyldPaaFlaske());
+        fyldPaaFlaskeButton.setOnAction(event -> skabProdukt());
 
         aftapningListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
@@ -138,7 +138,7 @@ public class AftapningPane extends VBox {
         }
     }
 
-    private void fyldPaaFlaske() {
+    private void skabProdukt() {
         if (aftapningListView.getSelectionModel().getSelectedItem() != null) {
             try {
                 antalLiterIAlt = 0;
