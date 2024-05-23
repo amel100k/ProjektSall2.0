@@ -13,6 +13,7 @@ import storage.Storage;
 import javafx.animation.TranslateTransition;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 public class DestilleringerPane extends VBox {
@@ -72,7 +73,7 @@ public class DestilleringerPane extends VBox {
         pane.add(kornsortLabel, 0, 3);
         pane.add(kornsort, 1, 3);
 
-        Label væskeMængdeIMlLabel = new Label("Væskemængde i ml:");
+        Label væskeMængdeIMlLabel = new Label("Væskemængde i l:");
         væskeMængdeIMl = new TextField();
         pane.add(væskeMængdeIMlLabel, 0, 4);
         pane.add(væskeMængdeIMl, 1, 4);
@@ -170,10 +171,13 @@ public class DestilleringerPane extends VBox {
         rygemateriale.clear();
         }
     }
+    public void updateDestilleringListView(List<Destillering> destilleringList) {
+        destilleringListView.getItems().setAll(destilleringList);
+    }
     public void lavDestillatButton() {
         Destillering selectedDestillering = destilleringListView.getSelectionModel().getSelectedItem();
         if (selectedDestillering != null) {
-            PopupWindowDestillat.display(selectedDestillering,destillaterPane);
+            PopupWindowDestillat.display(selectedDestillering,destillaterPane,this);
         }
         else {
             Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -188,7 +192,7 @@ public class DestilleringerPane extends VBox {
                 new Label("Slutdato: " + destillering.getSlutDato()),
                 new Label("Maltbatch i gram: " + destillering.getMaltbatchIGram()),
                 new Label("Kornsort: " + destillering.getKornsort()),
-                new Label("Væskemængde i ml: " + destillering.getVæskeMængdeIl()),
+                new Label("Væskemængde i l: " + destillering.getVæskeMængdeIl()),
                 new Label("Alkoholprocent: " + destillering.getAlkoholprocent()),
                 new Label("Kommentar: " + destillering.getKommentar()),
                 new Label("Rygemateriale: " + destillering.getRygemateriale())

@@ -11,7 +11,7 @@ import storage.Storage;
 
 public class PopupWindowDestillat {
 
-    public static void display(Destillering selectedDestillering, DestillaterPane destillaterPane) {
+    public static void display(Destillering selectedDestillering, DestillaterPane destillaterPane, DestilleringerPane destilleringerPane) {
         Stage popupStage = new Stage();
         GridPane pane = new GridPane();
         popupStage.initModality(Modality.APPLICATION_MODAL);
@@ -37,9 +37,11 @@ public class PopupWindowDestillat {
                 double alkoholprocent = Double.parseDouble(alkoholprocentField.getText());
                 int mængde = Integer.parseInt(mængdeField.getText());
 
-                selectedDestillering.literMængde(mængde);
                 selectedDestillering.createDestillat(alkoholprocent, new Mængde(mængde));
+                selectedDestillering.literMængde(mængde);
                 destillaterPane.updateDestillaterListView(Storage.getDestillater());
+                destillaterPane.updateDestilleringListView(Storage.getDestilleringer());
+                destilleringerPane.updateDestilleringListView(Storage.getDestilleringer());
 
                 popupStage.close();
             } catch (NumberFormatException e) {
