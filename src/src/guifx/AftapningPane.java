@@ -26,6 +26,7 @@ public class AftapningPane extends VBox {
     private Label testLbl;
     int antalLiterIAlt = 0;
     private Label antalFlasker;
+    private int literAftap2;
     private AftapningPane aftapningPane;
     private VBox aftapningInfoBox;
     private VBox produktInfoBox;
@@ -139,24 +140,35 @@ public class AftapningPane extends VBox {
 
     private void skabProdukt() {
         if (aftapningListView.getSelectionModel().getSelectedItem() != null) {
+
             try {
-                antalLiterIAlt = 0;
-                antalLiterIAlt += Integer.parseInt(literAftap.getText());
-                Aftapning test = aftapningListView.getSelectionModel().getSelectedItem();
+                    literAftap2 = Integer.parseInt(literAftap.getText());
+                if (aftapningListView.getSelectionModel().getSelectedItem().getLiter() >= literAftap2) {
 
-                antalLiterIAlt += Integer.parseInt(fortyndingTF.getText());
-                double beregnTest = Controller.beregnAlkoholProcent(test, Integer.parseInt(literAftap.getText()), Integer.parseInt(fortyndingTF.getText()));
-                Produkt produkt = Controller.createProdukt(test, beregnTest, antalLiterIAlt);
+                    antalLiterIAlt = 0;
+                    antalLiterIAlt += Integer.parseInt(literAftap.getText());
+                    Aftapning test = aftapningListView.getSelectionModel().getSelectedItem();
 
-                popUpFlaske().showAndWait();
-                flaskeListView.getItems().add(produkt);
-                List<Aftapning> aftapninger = Storage.getAftapninger();
-                LocalDate threeYearsAgo = LocalDate.now().minusYears(3);
+                    antalLiterIAlt += Integer.parseInt(fortyndingTF.getText());
+                    double beregnTest = Controller.beregnAlkoholProcent(test, Integer.parseInt(literAftap.getText()), Integer.parseInt(fortyndingTF.getText()));
+                    Produkt produkt = Controller.createProdukt(test, beregnTest, antalLiterIAlt);
 
-                List<Aftapning> filteredAftapninger = aftapninger.stream()
-                        .filter(a -> Period.between(a.getStartDato(), LocalDate.now()).getYears() >= 3)
-                        .collect(Collectors.toList());
-                updateAftapningLV(filteredAftapninger);
+                    popUpFlaske().showAndWait();
+                    flaskeListView.getItems().add(produkt);
+                    List<Aftapning> aftapninger = Storage.getAftapninger();
+                    LocalDate threeYearsAgo = LocalDate.now().minusYears(3);
+
+                    List<Aftapning> filteredAftapninger = aftapninger.stream()
+                            .filter(a -> Period.between(a.getStartDato(), LocalDate.now()).getYears() >= 3)
+                            .collect(Collectors.toList());
+                    updateAftapningLV(filteredAftapninger);
+                }
+                else {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setHeaderText("DER KAN IKKE AFTAPPES SÅ MEGET!");
+                    alert.setContentText("Du har indtastet et antal liter der er mere end hvad der kan aftappes!");
+                    alert.showAndWait();
+                }
 
             } catch (NumberFormatException e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
