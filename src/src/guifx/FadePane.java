@@ -58,7 +58,7 @@ public class FadePane extends VBox {
         pane.add(tidligereBrugLabel, 0, 1);
         pane.add(tidligereBruger, 1, 1);
 
-        Label placeringLabel = new Label("Placering:");
+        Label placeringLabel = new Label("Placering nummer:");
         placering = new TextField();
         pane.add(placeringLabel, 0, 2);
         pane.add(placering, 1, 2);
