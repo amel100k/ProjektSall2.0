@@ -117,7 +117,6 @@ public class AftapningPane extends VBox {
             produktInfoBox.getChildren().add(new Label("Destillat " + count));
             produktInfoBox.getChildren().add(new Label("  - Alkoholprocent: " + destillat.getAlkoholProcent()));
             produktInfoBox.getChildren().add(new Label("  - Mængde: " + destillat.getMængde() + "L"));
-            //produktInfoBox.getChildren().add(new Label("  - Fra destilleringen: " + destillat.getDestillering().getKornsort()));
             produktInfoBox.getChildren().add(new Label());
             count++;
         }
